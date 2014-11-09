@@ -1,0 +1,13 @@
+MANIFEST.in
+README.txt
+setup.cfg
+pip-egg-info/snapception.egg-info/PKG-INFO
+pip-egg-info/snapception.egg-info/SOURCES.txt
+pip-egg-info/snapception.egg-info/dependency_links.txt
+pip-egg-info/snapception.egg-info/entry_points.txt
+pip-egg-info/snapception.egg-info/requires.txt
+pip-egg-info/snapception.egg-info/top_level.txt
+snapception/__init__.py
+snapception/command_line.py
+snapception/decrypt_snap.rb
+snapception/mitmdump_input.py
