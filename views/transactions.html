@@ -1,0 +1,29 @@
+{% extends './layout.html' %}
+
+{% block borrowers-active %}class="active"{% endblock %}
+
+{% block content %}\
+<div class="container">
+<h1>Recent Transactions</h1>
+<hr>
+
+  {% for transaction in transactions %}
+  		<div class="container">
+  			<div class="row">
+	  			<div class="col-md-5">
+	  				<img src="uploads/{{ transaction.img }}" class="transaction-img"></img>
+	  			</div>
+	  			<div class="col-md-7">
+	  				<div ng-show="!transaction.update">
+					<h3>{{ transaction.name }}</h3>
+					<h5>Address: {{ transaction.address }}</h5>
+					<h5>Amount: {{ transaction.money }}</h5>
+					</div>
+	  			</div>
+  			</div>
+  		</div>
+	
+	<br><br>
+	{% endfor %}
+</div>
+{% endblock %}

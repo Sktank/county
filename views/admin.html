@@ -1,0 +1,203 @@
+{% extends './layout.html' %}
+
+{% block css %}
+<script type="text/javascript" src="/js/angular.js"></script>
+<script src="/js/admin/adminController.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container" ng-app="adminApp">
+<div ng-controller="AdminCtrl">
+<h1>Admin</h1>
+<a type="button" class="btn logout-btn" href="/logout">Logout</a>
+
+
+<ul class="nav nav-tabs nav-justified">
+	<li ng-click="view = {}; view.contacts = true" ng-class="{active:view.contacts}">Contacts</li>
+	<li ng-click="view = {}; view.recentTransactions = true" ng-class="{active:view.recentTransactions}">Recent Transactions</li>
+	<li ng-click="view = {}; view.borrowerTestimonials = true" ng-class="{active:view.borrowerTestimonials}">Borrower Testimonials</li>
+	<li ng-click="view = {}; view.brokerTestimonials = true" ng-class="{active:view.brokerTestimonials}">Broker Testimonials</li>
+</ul>
+
+<div ng-show="view.contacts">
+	<h2>Contacts</h2>
+
+	<span>Search: </span><input ng-model="contacts.query">
+	<hr>
+  	<div class="col-md-12" ng-repeat="contact in contacts.list | filter:contacts.query">
+	<div><b>[[ $index + 1 ]].</b></div>
+    <div><b>Name:</b> [[ contact.name ]]</div>
+	<div><b>Email:</b> [[ contact.email ]]</div>
+	<div><b>Message:</b> [[ contact.message ]]</div>
+	<br>
+  </div>
+</div>
+
+<div ng-show="view.recentTransactions">
+	<h2>Recent Transactions</h2>
+	<div class="add-transaction-container">
+		<h4>Add New Transaction</h4>
+		<form role="form" class="add-transaction-form"  enctype="multipart/form-data">
+			<div class="form-group">
+			    <label>Name *</label>
+			    <input class="form-control" name="name" ng-model="newTransaction.name">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Address *</label>
+			    <input class="form-control" name="address" ng-model="newTransaction.address">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Monies *</label>
+			    <input class="form-control" name="money" ng-model="newTransaction.money">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Image</label>
+		  	<input type="file" name="file" id="transactionUploader" onchange="console.log(angular.element(this).scope());angular.element(this).scope().uploadFile(this.files)"/>
+
+		  	</div>
+		  	<button class="btn btn-default" ng-click="createNewTransaction(newTransaction);">Submit</button>
+
+		</form>
+	</div>
+	<hr>
+<ul>
+	<span>Search: </span><input ng-model="transaction.query">
+	<hr>
+  <div ng-repeat="transaction in transactions.list | filter:transaction.query">
+  		<div class="container">
+  			<div class="row">
+	  			<div class="col-md-5">
+	  				<img ng-src="uploads/[[ transaction.img ]]" class="transaction-img"></img>
+	  			</div>
+	  			<div class="col-md-7">
+	  				<div ng-show="!transaction.update">
+					<h3>[[ transaction.name ]]</h3>
+					<h5>Address: [[ transaction.address ]]</h5>
+					<h5>Amount: [[ transaction.money ]]</h5>
+					</div>
+					<div class="update-container" ng-show="transaction.update">
+					<form role="form" class="add-transaction-form form-horizontal">
+						<div class="form-group">
+						    <label>Name</label>
+						    <input class="form-control" name="name" ng-model="transaction.nameTemp">
+					  	</div>
+					  	<div class="form-group">
+						    <label>Address</label>
+						    <input class="form-control" name="address" ng-model="transaction.addTemp">
+					  	</div>
+					  	<div class="form-group">
+						    <label>Monies</label>
+						    <input class="form-control" name="money" ng-model="transaction.monTemp">
+					  	</div>
+					  	<button class="btn btn-default" ng-click="updateTransaction(transaction)">Save</button>
+					  	<button class="btn btn-default" ng-click="transaction.update = false">Cancel</button>
+					</form>
+					</div>
+					<hr>
+					<div class="btn btn-default" ng-click="deleteTransaction(transaction)">Delete</div>
+					<div class="btn btn-default" ng-click="transaction.update = true">Update</div>
+	  			</div>
+  			</div>
+  		</div>
+	
+	<br>
+  </div>
+</ul>
+</div>
+
+
+<div ng-show="view.brokerTestimonials">
+	<h2>Broker Testimonials</h2>
+	<div class="add-transaction-container">
+		<h4>Add New Testimonial</h4>
+		<form role="form" class="add-transaction-form">
+			<div class="form-group">
+			    <label>Name *</label>
+			    <input class="form-control" name="name" ng-model="newBrokerTestimonial.name">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Testimonial *</label>
+			    <textarea rows="4" class="form-control" name="quote" ng-model="newBrokerTestimonial.quote"></textarea>
+		  	</div>
+		  	<button class="btn btn-default" ng-click="createNewTestimonial(newBrokerTestimonial, 'broker');">Submit</button>
+		</form>
+	</div>
+	<hr>
+  <div class="col-md-12" ng-repeat="testimonial in brokerTestimonials.list">
+  	<div ng-show="!testimonial.update">
+	  	<div><b>[[ $index + 1 ]].</b></div>
+	    <div><b>Name:</b> [[ testimonial.name ]]</div>
+		<div><b>Quote:</b> [[ testimonial.quote ]]</div>
+		</div>
+		<div class="update-container" ng-show="testimonial.update">
+		<form role="form" class="add-transaction-form form-horizontal">
+			<div class="form-group">
+			    <label>Name</label>
+			    <input class="form-control" name="name" ng-model="testimonial.nameTemp">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Quote</label>
+			    <textarea rows="4" class="form-control" name="address" ng-model="testimonial.quoteTemp"></textarea>
+		  	</div>
+		  	<button class="btn btn-default" ng-click="updateBrokerTestimonial(testimonial)">Save</button>
+		  	<button class="btn btn-default" ng-click="testimonial.update = false">Cancel</button>
+		</form>
+		</div>
+		<hr>
+		<div class="btn btn-default" ng-click="deleteBrokerTestimonial(testimonial)">Delete</div>
+		<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
+	<br>
+	<br>
+  </div>
+</div>
+
+
+<div ng-show="view.borrowerTestimonials">
+	<h2>Borrower Testimonials</h2>
+	<div class="add-transaction-container">
+		<h4>Add New Testimonial</h4>
+		<form role="form" class="add-transaction-form">
+			<div class="form-group">
+			    <label>Name *</label>
+			    <input class="form-control" name="name" ng-model="newBorrowerTestimonial.name">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Testimonial *</label>
+			    <textarea rows="4" class="form-control" name="quote" ng-model="newBorrowerTestimonial.quote"></textarea>
+		  	</div>
+		  	<button class="btn btn-default" ng-click="createNewTestimonial(newBorrowerTestimonial, 'borrower');">Submit</button>
+		</form>
+	</div>
+	<hr>
+	<div class="col-md-12" ng-repeat="testimonial in borrowerTestimonials.list">
+		<div ng-show="!testimonial.update">
+	  	<div><b>[[ $index + 1 ]].</b></div>
+	    <div><b>Name:</b> [[ testimonial.name ]]</div>
+		<div><b>Quote:</b> [[ testimonial.quote ]]</div>
+		</div>
+		<div class="update-container" ng-show="testimonial.update">
+		<form role="form" class="add-transaction-form form-horizontal">
+			<div class="form-group">
+			    <label>Name</label>
+			    <input class="form-control" name="name" ng-model="testimonial.nameTemp">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Quote</label>
+			    <textarea rows="4" class="form-control" name="address" ng-model="testimonial.quoteTemp"></textarea>
+		  	</div>
+		  	<button class="btn btn-default" ng-click="updateBorrowerTestimonial(testimonial)">Save</button>
+		  	<button class="btn btn-default" ng-click="testimonial.update = false">Cancel</button>
+		</form>
+		</div>
+		<hr>
+		<div class="btn btn-default" ng-click="deleteBorrowerTestimonial(testimonial)">Delete</div>
+		<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
+		<br>
+		<br>
+	</div>
+</div>
+
+
+</div>
+</div>
+{% endblock %}

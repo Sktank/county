@@ -7,6 +7,6 @@
  */
 module.exports = {
 
-    'url' : 'mongodb://localhost/wwpinfo' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
+    'url' : 'mongodb://localhost/county' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
 
 };

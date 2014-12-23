@@ -11,7 +11,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     flash 	 = require('connect-flash'),
-    configDB = require('./config/database.js');
+    configDB = require('./config/database.js'),
+    qt       = require('quickthumb');
     // queue    = require('./queue.js'),
     // locale = require("locale"),
     // I18n = require('i18n-2');
@@ -32,8 +33,9 @@ var app = express(),
 // =========================================================
 
 app.configure(function() {
+    app.use(qt.static(__dirname + '/'));
     app.use(express.cookieParser());
-    app.use(express.bodyParser());
+    app.use(express.json()).use(express.urlencoded());
     app.set('view engine', 'html');
     app.engine('html', swig.renderFile);
 
@@ -68,7 +70,7 @@ app.configure(function() {
     app.use(flash()); // use connect-flash for flash messages stored in session
 
 });
-var serverPort = 6001;
+var serverPort = 6005;
 server.listen(serverPort);
 console.log("listening on: " + serverPort);
 

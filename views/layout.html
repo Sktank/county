@@ -1,50 +1,157 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title>wwpinfo</title>
-    {% block head %}
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
-        <link rel="stylesheet" href="/main.css">
-    {% endblock %}
-    {% block js %}
-    {% endblock %}
-</head>
-<body>
-    {% block header %}
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">WWPInfo</a>
-        </div>
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>County Mortage LLC</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li {% block home-active %}{% endblock %} ><a href="/">Home</a></li>
-            <li {% block contact-active %}{% endblock %} ><a  href="/contact">Contact Us</a></li>
-            <li {% block events-active %}{% endblock %} ><a href="/events">Events</a></li>
-            <li {% block wwlinks-active %}{% endblock %} ><a  href="west-windsor-links">West Windsor Links</a></li>
-            <li {% block plinks-active %}{% endblock %} ><a href="plainsboro-links">Plainsboro Links</a></li>
-            <li {% block slinks-active %}{% endblock %} ><a href="school-links">School Links</a></li>
-            <li {% block archives-active %}{% endblock %} ><a href="archives">Archives</a></li>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/icomoon-social.css">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'> -->
+        <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="/css/leaflet.css" />
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="css/leaflet.ie.css" />
+        <![endif]-->
+        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/css/index.css">
 
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
-</body>
+        {% block css %}
+        {% endblock %}
+
+        <script src="/js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+
+    </head>
+    <body>
+
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        {% block header %}
+    
+            <div class="mainmenu-wrapper">
+                <div class="container">
+                    <div class="menuextras">
+                        <div class="extras">
+                            <ul>
+                                <li><a href="login">Login</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <nav id="mainmenu" class="mainmenu">
+                        <ul>
+                            <li class="logo-wrapper">County Mortage LLC</li>
+                            <li {% block home-active %}{% endblock %}>
+                                <a href="/">Home</a>
+                            </li>
+                            <li {% block about-active %}{% endblock %}>
+                                <div id="about-dropdown" class="dropdown">
+                                    <a class="nav-header-link" href="about">About</a>
+                                    <div class="dropdown-menu">
+                                        <a href="shit.html">Core Values</a>
+                                        <a href="shit.html">Team</a>
+                                        <a href="shit.html">History</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li {% block borrowers-active %}{% endblock %}>
+                                <div id="borrowers-dropdown" class="dropdown">
+                                    <a class="nav-header-link" href="borrowers">Borrowers</a>
+                                    <div class="dropdown-menu">
+                                        <a href="transactions">Recent Transactions</a>
+                                        <a href="shit.html">Crap2</a>
+                                        <a href="shit.html">Crap3</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li {% block brokers-active %}{% endblock %}>
+                                <div id="brokers-dropdown" class="dropdown">
+                                    <a class="nav-header-link" href="brokers">Brokers</a>
+                                    <div class="dropdown-menu">
+                                        <a href="shit.html">Crap1</a>
+                                        <a href="shit.html">Crap2</a>
+                                        <a href="shit.html">Crap3</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li {% block contact-active %}{% endblock %}>
+                                <a href="contact">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        {% endblock %}
+
+
+        {% block content %}
+
+        {% endblock %}
+
+
+        {% block footer %}
+            <div class="footer">
+                <div class="container">
+                    <div class="row">
+                       <div class="col-footer col-md-3 col-xs-6">
+                            <h3>View Recent Transactions</h3>
+                            <div class="portfolio-item">
+                                <div class="portfolio-image">
+                                    <a href="broker"><img src="img/house.jpg" alt="Recent Transactions"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-footer col-md-4 col-xs-6">
+                            <h3>Navigate</h3>
+                            <ul class="no-list-style footer-navigate-section">
+                                <li><a href="page-blog-posts.html">About</a></li>
+                                <li><a href="page-portfolio-3-columns-2.html">Borrowers</a></li>
+                                <li><a href="page-products-3-columns.html">Brokers</a></li>
+                                <li><a href="page-services-3-columns.html">Contact</a></li>
+                                <li><a href="page-pricing.html">Payment</a></li>
+                                <li><a href="page-faq.html">Resources</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="col-footer col-md-5 col-xs-6">
+                            <h3>Contacts</h3>
+                            <p class="contact-us-details">
+                                <b>Address:</b> 123 Fake Street, LN1 2ST, London, United Kingdom<br/>
+                                <b>Phone:</b> +44 123 654321<br/>
+                                <b>Fax:</b> +44 123 654321<br/>
+                                <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">getintoutch@yourcompanydomain.com</a>
+                            </p>
+                        </div>
+                        
+                    </div>
+                    <div class="row footer-padding">
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+
+
+        <!-- Javascripts -->
+        <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+        <script>window.jQuery || document.write('<script src="/js/jquery-1.9.1.min.js"><\/script>')</script>
+        <script src="/js/bootstrap.min.js"></script>
+        <!-- <script src="http://cdn.leafletjs.com/leaflet-0.5.1/leaflet.js"></script> -->
+        <script src="/js/jquery.fitvids.js"></script>
+        <script src="/js/jquery.sequence-min.js"></script>
+        <script src="/js/jquery.bxslider.js"></script>
+        <script src="/js/jquery-dropdown.js"></script>
+        <script src="/js/main-menu.js"></script>
+        <script src="/js/template.js"></script>
+        {% block js %}
+        {% endblock %}
+
+    </body>
 </html>

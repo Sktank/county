@@ -1,0 +1,134 @@
+.mainmenu > ul > li.active > div > a {
+	color: #4f8db3;
+	font-weight: 600 !important;
+}
+
+.nav-header-link {
+	font-size: 1.2em;
+	padding: 1.2em 1.5em;
+	color: #999;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.nav-header-link:hover {
+	color: #4f8db3;
+	text-decoration: none;
+}
+
+.dropdown-menu {
+	margin-top: 0px;
+	/*padding: 0px;*/
+	opacity: 0.95;
+}
+
+.dropdown-menu > a {
+	padding: 10px;
+	display: inline-block;
+	width: 100%;
+	color: #999;
+	/*border-radius: 2px;*/
+}
+
+.dropdown-menu > a:hover {
+	text-decoration: none;
+	background-color: #DFECF5;
+	color: #4f8db3;;
+}
+
+@media screen and (min-width: 992px) {
+	.logo-wrapper {
+		margin-right: 15%;
+	}
+}
+
+@media screen and (min-width: 880px) {
+/*	.harbor-image {
+		background-size: cover;
+	}*/
+}
+
+
+
+@media screen and (max-width: 479px) {
+	.mainmenu > ul > li > div > a {
+		display: block;
+		padding: 1em 3em;
+	}
+}
+
+.mainmenu-wrapper {
+	padding-top: 50px;
+}
+
+.harbor-image {
+	background-image: url(../img/homepage-slider/skyline2.jpg);
+}
+
+
+.county-section-header {
+	border: none;
+	padding: 0px;
+}
+
+.county-footer {
+	height: 100px;
+	/*padding-bottom: 50px;*/
+	bottom: 0;
+	position: absolute;
+}
+
+.contact-form {
+	margin-top: 10px;
+	padding: 30px;
+}
+
+.portfolio-item {
+	position: inherit;
+}
+
+.footer-padding {
+	height: 70px;
+}
+
+.office-img {
+	margin-bottom: 15px;
+	border-radius: 2px;
+}
+
+.office-container {
+	padding: 20px;
+}
+
+.logout-btn {
+	float: right;
+	margin-top: -50px;
+}
+
+.nav-tabs > li {
+	font-size: 16px;
+	font-weight: 600;
+	padding: 8px;
+	background-color: white;
+	border: 1px solid grey;
+	cursor: pointer;
+	color: #4f8db3;
+	text-align: center;
+}
+
+.nav-tabs > li.active {
+	background-color: #4f8db3;
+	color: white;
+
+}
+
+.transaction-img {
+	height: 200px;
+	width: 300px;
+	border-radius: 2px;
+	border: 1px solid #4f8db3;
+}
+
+#sequence > .sequence-canvas > li.animate-in {
+	background-position: -290px 0;
+}

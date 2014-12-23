@@ -62,60 +62,50 @@ module.exports = function(passport) {
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
                 console.log("The req is!");
-                var firstName = req.body.firstName;
-                var lastName = req.body.lastName;
 
-                if (!firstName) {
-                    return done(null, false, req.flash('signupMessage', 'Please enter your first name!'));
-                }
+                console.log(email)
+                console.log(password)
+                // var firstName = req.body.firstName;
+                // var lastName = req.body.lastName;
 
-                if (!lastName) {
-                    return done(null, false, req.flash('signupMessage', 'Please enter your last name!'));
-                }
+                // if (!firstName) {
+                //     return done(null, false, req.flash('signupMessage', 'Please enter your first name!'));
+                // }
 
-
-                // User.findOne({ 'local.email' :  email }, function(err, user) {
-                //     // if there are any errors, return the error
-                //     if (err)
-                //         return done(err);
-
-                //     // check to see if theres already a user with that email
-                //     if (user) {
-                //         return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-                //     } else {
+                // if (!lastName) {
+                //     return done(null, false, req.flash('signupMessage', 'Please enter your last name!'));
+                // }
 
 
-                //         var splitEmail = email.split("@");
-                //         if (splitEmail.length != 2) {
-                //             return done(null, false, req.flash('signupMessage', "That email doesn't appear to be real!"));
-                //         }
-                //         var splitDomain = splitEmail[1].split(".");
-                //         if (splitDomain.length != 2) {
-                //             return done(null, false, req.flash('signupMessage', "That email doesn't appear to be real!"));
-                //         }
-                //         var school = splitDomain[0];
+                User.findOne({ 'local.email' :  email }, function(err, user) {
+                    // if there are any errors, return the error
+                    if (err)
+                        return done(err);
 
-                //         // if there is no user with that email
-                //         // create the user
-                //         var newUser            = new User();
+                    // check to see if theres already a user with that email
+                    if (user) {
+                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                    } else {
 
-                //         // set the user's local credentials
-                //         newUser.local.email    = email;
-                //         newUser.name.first     = firstName.capitalize();
-                //         newUser.name.last     = lastName.capitalize();
-                //         newUser.school         = school.capitalize();
-                //         newUser.local.password = newUser.generateHash(password);
 
-                //         // save the user
-                //         newUser.save(function(err) {
-                //             if (err)
-                //                 throw err;
-                //             console.log('user should be saved!');
-                //             return done(null, newUser);
-                //         });
-                //     }
+                        // if there is no user with that email
+                        // create the user
+                        var newUser            = new User();
 
-                // });
+                        // set the user's local credentials
+                        newUser.local.email    = email;
+                        newUser.local.password = newUser.generateHash(password);
+
+                        // save the user
+                        newUser.save(function(err) {
+                            if (err)
+                                throw err;
+                            console.log('user should be saved!');
+                            return done(null, newUser);
+                        });
+                    }
+
+                });
 
             });
 
