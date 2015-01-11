@@ -13,13 +13,14 @@
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/icomoon-social.css">
         <!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800' rel='stylesheet' type='text/css'> -->
-        <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
         <link rel="stylesheet" href="/css/leaflet.css" />
         <!--[if lte IE 8]>
             <link rel="stylesheet" href="css/leaflet.ie.css" />
         <![endif]-->
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/index.css">
+        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
         {% block css %}
         {% endblock %}
@@ -47,42 +48,51 @@
                     </div>
                     <nav id="mainmenu" class="mainmenu">
                         <ul>
-                            <li class="logo-wrapper">County Mortage LLC</li>
+                            <li class="logo-wrapper"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img><span class="brand-span">County Mortage LLC</span></li>
                             <li {% block home-active %}{% endblock %}>
-                                <a href="/">Home</a>
+                                <a class="navbar-link" href="/">Home</a>
                             </li>
                             <li {% block about-active %}{% endblock %}>
                                 <div id="about-dropdown" class="dropdown">
-                                    <a class="nav-header-link" href="about">About</a>
+                                    <a class="nav-header-link navbar-link" href="about">About</a>
                                     <div class="dropdown-menu">
-                                        <a href="shit.html">Core Values</a>
-                                        <a href="shit.html">Team</a>
-                                        <a href="shit.html">History</a>
+                                        <a href="about">About Us</a>
+                                        <a href="team">Our Team</a>
                                     </div>
                                 </div>
                             </li>
                             <li {% block borrowers-active %}{% endblock %}>
                                 <div id="borrowers-dropdown" class="dropdown">
-                                    <a class="nav-header-link" href="borrowers">Borrowers</a>
+                                    <a class="nav-header-link navbar-link" href="borrowers">Borrowers</a>
                                     <div class="dropdown-menu">
                                         <a href="transactions">Recent Transactions</a>
-                                        <a href="shit.html">Crap2</a>
-                                        <a href="shit.html">Crap3</a>
+                                        <a href="borrower-testimonials">Testimonials</a>
+                                        <a href="criteria">Loan Criteria</a>
+                                        <a href="glossary">Glossary</a>
+                                        <a href="resources">Application Resources</a>
                                     </div>
                                 </div>
                             </li>
                             <li {% block brokers-active %}{% endblock %}>
                                 <div id="brokers-dropdown" class="dropdown">
-                                    <a class="nav-header-link" href="brokers">Brokers</a>
+                                    <a class="nav-header-link navbar-link" href="brokers">Brokers</a>
                                     <div class="dropdown-menu">
-                                        <a href="shit.html">Crap1</a>
-                                        <a href="shit.html">Crap2</a>
-                                        <a href="shit.html">Crap3</a>
+                                        <a href="transactions">Recent Transactions</a>
+                                        <a href="broker-testimonials">Testimonials</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li {% block resources-active %}{% endblock %}>
+                                <div id="resources-dropdown" class="dropdown">
+                                    <a class="nav-header-link navbar-link" href="borrowers">Resources</a>
+                                    <div class="dropdown-menu">
+                                        <a href="glossary">Glossary</a>
+                                        <a href="resources">Application Resources</a>
                                     </div>
                                 </div>
                             </li>
                             <li {% block contact-active %}{% endblock %}>
-                                <a href="contact">Contact</a>
+                                <a class="navbar-link" href="contact">Contact</a>
                             </li>
                         </ul>
                     </nav>

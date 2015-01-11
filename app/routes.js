@@ -256,6 +256,10 @@ module.exports = function(app, passport) {
         res.render('about.html');
     });
 
+    app.get('/team', function (req, res) {
+        res.render('team.html');
+    });
+
         // =====================================
     // LOGIN ===============================
     // =====================================
@@ -341,6 +345,26 @@ module.exports = function(app, passport) {
                 throw err;
             } else {
                 res.render('transactions.html', {transactions: transactions});
+            }
+        })
+    })
+
+    app.get('/borrower-testimonials', function(req, res) {
+        Testimonial.find({type:'borrower'}, function(err, testimonials) {
+            if (err) {
+                throw err;
+            } else {
+                res.render('testimonials.html', {testimonials: testimonials});
+            }
+        })
+    })
+
+    app.get('/broker-testimonials', function(req, res) {
+        Testimonial.find({type:'broker'}, function(err, testimonials) {
+            if (err) {
+                throw err;
+            } else {
+                res.render('broker-testimonials.html', {testimonials: testimonials});
             }
         })
     })

@@ -22,5 +22,7 @@ $(document).ready(function(){
 	configDropdown(header);
 	header = "#brokers-dropdown";
 	configDropdown(header);
+	header = "#resources-dropdown";
+	configDropdown(header);
 
 });

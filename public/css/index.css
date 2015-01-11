@@ -1,3 +1,20 @@
+h2 {
+	border-bottom: none;
+}
+
+.logo-img {
+	margin-top: -70px;
+}
+
+.brand-span {
+	position: absolute;
+	margin-top: -60px;
+	font-size: 24px;
+	margin-left: -11px;
+	color: rgb(31, 62, 152);
+	
+}
+
 .mainmenu > ul > li.active > div > a {
 	color: #4f8db3;
 	font-weight: 600 !important;
@@ -18,12 +35,20 @@
 
 .dropdown-menu {
 	margin-top: 0px;
+	border-radius: 0px;
+	box-shadow: 0 8px 12px rgba(0,0,0,.175);
+	border-top: none;
+	min-width: 173px;
 	/*padding: 0px;*/
-	opacity: 0.95;
+	/*opacity: 0.95;*/
+}
+
+.dropdown:hover {
+	box-shadow: 0 0px 12px rgba(0,0,0,.05);
 }
 
 .dropdown-menu > a {
-	padding: 10px;
+	padding: 15px;
 	display: inline-block;
 	width: 100%;
 	color: #999;
@@ -38,9 +63,11 @@
 
 @media screen and (min-width: 992px) {
 	.logo-wrapper {
-		margin-right: 15%;
+		margin-right: 11%;
 	}
 }
+
+@media screen and (max-width: 979px)
 
 @media screen and (min-width: 880px) {
 /*	.harbor-image {
@@ -62,13 +89,17 @@
 }
 
 .harbor-image {
-	background-image: url(../img/homepage-slider/skyline2.jpg);
+	background-image: url(../img/homepage-slider/skyline4.jpg);
 }
 
 
 .county-section-header {
 	border: none;
 	padding: 0px;
+}
+
+.footer {
+	margin-top: 0px;
 }
 
 .county-footer {
@@ -130,5 +161,271 @@
 }
 
 #sequence > .sequence-canvas > li.animate-in {
-	background-position: -290px 0;
+	/*background-position: -290px 0;*/
+}
+
+.home-about-header {
+	text-align: center;
+	color:white;
+}
+
+.home-services-header {
+	text-align: center;
+	color: #2f556d;
+}
+
+.home-testimonials-header {
+	text-align: center;
+	color: #2f556d;
+	margin-bottom: 40px;
+}
+
+.about-section {
+  background-color: #4f8db3;
+  color: white;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  margin-top: -30px;
+  border-top: 4px solid rgb(32, 71, 106);
+  /*border-bottom: 2px solid grey;*/
+
+}
+
+.home-about-link {
+	color: #2f556d;
+	font-size: 1.1em;
+	text-decoration: none;
+	-webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    -o-transition: all .2s linear;
+    -ms-transition: all .2s linear;
+    transition: all .2s linear;
+}
+
+.home-about-link:hover {
+	color:black;
+	text-decoration: none;
+}
+
+.services-section {
+  background: url(../img/page-background.png);
+
+}
+
+.home-services-icon {
+	font-size: 64px;
+	color: #4f8db3;
+}
+
+.service-wrapper:hover {
+	background-color: #E7F6FF;
+	cursor: pointer;
+	-webkit-transition: all .4s linear;
+    -moz-transition: all .4s linear;
+    -o-transition: all .4s linear;
+    -ms-transition: all .4s linear;
+    transition: all .4s linear;
+}
+
+.testimonial-section {
+	padding-top: 30px;
+	background-color: white;
+}
+
+.home-testimonial a {
+	color: #a0a7ac;
+	font-size: 1.3em;
+	font-family: Georgia, serif;
+	line-height: 28px;
+	position: relative;
+	padding-left: 16px;
+	padding-bottom: 32px;
+	margin-bottom: 15px;
+	display: block;
+	-webkit-transition: color .25s linear;
+	-moz-transition: color .25s linear;
+	-o-transition: color .25s linear;
+	-ms-transition: color .25s linear;
+	transition: color .25s linear;
+}
+
+
+.home-testimonial a:hover {
+color: #4f8db3;
+text-decoration: none;
+}
+
+.home-testimonial a:before {
+content: "\201C";
+margin-left: -16px;
+font-size: 2.2em;
+}
+
+.home-testimonial a:after {
+content: '-Mr Bones Jones, Financial Advisor';
+display: block;
+position: absolute;
+bottom: -10px;
+right: 20px;
+}
+
+.borrower-testimonial {
+	color: #a0a7ac;
+	font-size: 1.3em;
+	font-family: Georgia, serif;
+	line-height: 28px;
+	position: relative;
+	padding-left: 16px;
+	padding-bottom: 32px;
+	margin-bottom: 15px;
+	padding-left: 50px;
+	display: block;
+	border-left: 0px solid #4f8db3;
+	-webkit-transition: all .25s linear;
+	-moz-transition: all .25s linear;
+	-o-transition: all .25s linear;
+	-ms-transition: all .25s linear;
+	transition: all .15s linear;
+	border-radius: 2px;
+}
+
+.borrower-testimonial:hover {
+	color: #4f8db3;
+	text-decoration: none;
+	padding-left: 40px;
+	border-left: 5px solid #4f8db3;
+	border-radius: 14px;
+}
+
+.testimonial-name {
+	-webkit-transition: all .25s linear;
+	-moz-transition: all .25s linear;
+	-o-transition: all .25s linear;
+	-ms-transition: all .25s linear;
+	transition: all .25s linear;
+}
+
+.testimonial-hr {
+	margin-top: 20px;
+	margin-bottom: 40px;
+	border: 0;
+	border-top: 1px solid #eee;
+	width: 80%;
+}
+
+.borrower-testimonial:hover .testimonial-name {
+	margin-left: 5%;
+}
+
+.borrower-testimonial p:before {
+	content: "\201C";
+	margin-left: -16px;
+	font-size: 2.2em;
+}
+
+.testimonial-john a:after {
+	content: '-John Bones, Financial Advisor';
+}
+
+.testimonial-peter a:after {
+	content: '-Peter Baker, Financial Manager';
+}
+
+.testimonial-jane a:after {
+	content: '-Jane Mckeedy, Financial Engineer';
+}
+
+.padded-container {
+	padding: 30px;
+}
+
+.subtitle {
+	margin-top: -35px;
+}
+
+.subtitle-top-text {
+	color: black;
+	font-size: 1.2em !important;
+	left: 35%;
+	/* width: 35%; */
+	top: 40%;
+	text-shadow: 2px 2px 3px #444;
+}
+
+.subtitle-bottom-text {
+	font-style: italic;
+	color: white;
+}
+
+#sequence .title {
+	bottom: 63%;
+}
+
+.position {
+	margin-top: -8px;
+	margin-left: 10px;
+	margin-bottom: 20px;
+	color: #2f556d;
+}
+
+.name {
+	font-weight: bold;
+	color: #2f556d;
+}
+
+.hr-visible {
+	border-top: 1px solid #4f8db3;
+	margin-bottom: 40px;
+	width: 91%;
+}
+
+.team-header {
+	padding-left: 0px;
+	text-align: center;
+}
+
+.employee-container {
+	padding-left: 25px;
+	border-left: 5px solid #4f8db3;
+	margin-bottom: 55px;
+	border-radius: 14px;
+}
+
+h2 {
+	padding-left: 0px;
+}
+
+.cm-header {
+	background: url(../img/corporate_background3.jpg);
+	border-bottom: 2px solid #4f8db3;
+
+}
+
+.cm-header h2 {
+	margin: 0px;
+	color: #2f556d;
+	margin-left: 70px;
+}
+
+.transaction-container {
+	border-right: 5px solid #4f8db3;
+	margin-bottom: 55px;
+	border-radius: 14px;
+}
+
+.contact-container {
+	background: url(../img/page-background.png);
+}
+
+.navbar-link {
+	padding-left: 35px !important;
+	padding-right: 35px !important;
+}
+
+.padded-top {
+	margin-top: 30px;
+}
+
+.login-form {
+	margin-bottom: 150px;
 }

@@ -1,0 +1,30 @@
+{% extends './layout.html' %}
+
+{% block brokers-active %}class="active"{% endblock %}
+
+{% block content %}
+<div class="cm-header">
+	<div class="container padded-container">
+	<div class="col-md-10 col-md-offset-1">
+	<h2>Broker Testimonials</h2>
+	</div>
+	</div>
+</div>
+<div class="container padded-container">
+	<div class="col-md-10 col-md-offset-1 padded-top">
+<!-- <h1>Recent Transactions</h1> -->
+<!-- <hr> -->
+
+
+  {% for testimonial in testimonials %}
+  			<div class="testimonial-container">
+  				<div class="borrower-testimonial">
+              		<p>{{ testimonial.quote }}</p>
+              		<div class="testimonial-name">- {{ testimonial.name }}</div>
+        		</div>
+			</div>
+	<hr class="testimonial-hr">
+	{% endfor %}
+	</div>
+</div>
+{% endblock %}
