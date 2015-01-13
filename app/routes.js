@@ -260,6 +260,10 @@ module.exports = function(app, passport) {
         res.render('team.html');
     });
 
+    app.get('/loan-criteria', function (req, res) {
+        res.render('criteria.html');
+    });
+
         // =====================================
     // LOGIN ===============================
     // =====================================

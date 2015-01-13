@@ -1854,7 +1854,7 @@ span.color-red {
 #sequence {
   overflow: hidden;
   width: 100%;
-  max-width: 1920px;
+  max-width: 1540px;
   color: white;
   font-size: 0.625em;
   margin: 0 auto 30px auto;
@@ -2466,7 +2466,7 @@ span.color-red {
 .mainmenu-submenu ul {
   margin-left: 20px;
 }
-@media screen and (max-width: 979px) {
+@media screen and (max-width: 992px) {
   .mainmenu {
     font-size: 0.8em;
   }
@@ -2476,6 +2476,11 @@ span.color-red {
   .mainmenu-submenu li,
   .mainmenu-submenu h4 {
     padding-left: 10px;
+  }
+
+  .navbar-link {
+    padding-left: 25px !important;
+    padding-right: 25px !important;
   }
 }
 @media screen and (max-width: 479px) {
@@ -2666,4 +2671,9 @@ span.color-red {
 }
 .dropdown.open a.dropdown-toggle .caret {
   border-top: 4px solid #FFF;
+}
+
+.homepage-slider {
+  background-color: rgb(32, 71, 106);
+  background-color: black;
 }
