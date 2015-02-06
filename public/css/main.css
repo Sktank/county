@@ -2376,7 +2376,7 @@ span.color-red {
   z-index: 4;
 }
 .mainmenu {
-  width: 100%;
+  /*width: 100%;*/
   /* general ul style */
   /* first level ul style */
   /* sub-menu */
@@ -2481,6 +2481,12 @@ span.color-red {
   .navbar-link {
     padding-left: 25px !important;
     padding-right: 25px !important;
+  }
+
+  .phone-span {
+    margin-top: -60px;
+    font-size: 24px;
+    margin-left: 54%;
   }
 }
 @media screen and (max-width: 479px) {

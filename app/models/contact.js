@@ -12,9 +12,11 @@ var mongoose = require('mongoose');
 // define the schema for our user model
 var contactSchema = mongoose.Schema({
 
-    name    : String,
-    email   : String,
-    message : String,
+    name     : String,
+    email    : String,
+    message  : String,
+    time     : Number,
+    archived : Boolean,
 
 
 });

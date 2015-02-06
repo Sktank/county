@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>County Mortage LLC</title>
+        <title>County Mortgage, LLC</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
@@ -20,7 +20,7 @@
         <![endif]-->
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/index.css">
-        <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet' type='text/css'>
 
         {% block css %}
         {% endblock %}
@@ -38,17 +38,16 @@
         {% block header %}
     
             <div class="mainmenu-wrapper">
-                <div class="container">
-                    <div class="menuextras">
+                <div class="logo-wrapper"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img><span class="brand-span">County Mortgage, LLC</span><span class="phone-span">NMLS # 2162</span></div>
+<!--                     <div class="menuextras">
                         <div class="extras">
                             <ul>
                                 <li><a href="login">Login</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     <nav id="mainmenu" class="mainmenu">
                         <ul>
-                            <li class="logo-wrapper"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img><span class="brand-span">County Mortage LLC</span></li>
                             <li {% block home-active %}{% endblock %}>
                                 <a class="navbar-link" href="/">Home</a>
                             </li>
@@ -96,7 +95,6 @@
                             </li>
                         </ul>
                     </nav>
-                </div>
             </div>
         {% endblock %}
 

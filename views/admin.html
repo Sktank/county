@@ -6,30 +6,47 @@
 {% endblock %}
 
 {% block content %}
+<div class="cm-header">
+	<div class="container padded-container">
+	<div class="col-md-10 col-md-offset-1">
+	<h2>Adminstation Panel</h2>
+	<i class="fa fa-cogs cm-icon"></i>
+	</div>
+	</div>
+</div>
+<br><br><br>
 <div class="container" ng-app="adminApp">
 <div ng-controller="AdminCtrl">
-<h1>Admin</h1>
 <a type="button" class="btn logout-btn" href="/logout">Logout</a>
 
 
 <ul class="nav nav-tabs nav-justified">
-	<li ng-click="view = {}; view.contacts = true" ng-class="{active:view.contacts}">Contacts</li>
+	<li ng-click="view = {}; view.contacts = true" ng-class="{active:view.contacts}">Messages</li>
 	<li ng-click="view = {}; view.recentTransactions = true" ng-class="{active:view.recentTransactions}">Recent Transactions</li>
 	<li ng-click="view = {}; view.borrowerTestimonials = true" ng-class="{active:view.borrowerTestimonials}">Borrower Testimonials</li>
 	<li ng-click="view = {}; view.brokerTestimonials = true" ng-class="{active:view.brokerTestimonials}">Broker Testimonials</li>
 </ul>
 
 <div ng-show="view.contacts">
-	<h2>Contacts</h2>
-
-	<span>Search: </span><input ng-model="contacts.query">
+	<h2>Messages</h2>
+	<input class="form-control search-bar" ng-model="contacts.query" placeholder="Search">
+	<div class="message-view-options-wrapper">
+		<div class="btn btn-default" ng-class="{ 'btn-inactive':contacts.viewArchive }" ng-click="contacts.viewArchive = false">Current Messages</div>
+		<div class="btn btn-default" ng-class="{ 'btn-inactive':!contacts.viewArchive }" ng-click="contacts.viewArchive = true">Archived Messages</div>
+	</div>
 	<hr>
-  	<div class="col-md-12" ng-repeat="contact in contacts.list | filter:contacts.query">
-	<div><b>[[ $index + 1 ]].</b></div>
-    <div><b>Name:</b> [[ contact.name ]]</div>
-	<div><b>Email:</b> [[ contact.email ]]</div>
-	<div><b>Message:</b> [[ contact.message ]]</div>
-	<br>
+  	<div class="col-md-12" ng-repeat="contact in contacts.list | filter:{archived:contacts.viewArchive} | filter:contacts.query | orderBy:time:reverse">
+		<div class="message-wrapper">
+			<div><b>Submitted: [[ contact.date ]]</b></div>
+			<div class="archive-btns-wrapper">
+				<div class="btn btn-default" ng-show="!contact.archived" ng-click="toggleArchive(contact)">Archive</div>
+				<div class="btn btn-default" ng-show="contact.archived" ng-click="toggleArchive(contact)">Unarchive</div>
+				<div class="btn btn-danger" ng-show="contact.archived" ng-click="deleteContact(contact)">Delete</div>
+			</div>
+		    <div><b>From:</b> [[ contact.name ]]</div>
+			<div><b>Email:</b> [[ contact.email ]]</div>
+			<div><p>[[ contact.message ]]</p></div>
+		</div>
   </div>
 </div>
 
@@ -60,10 +77,14 @@
 		</form>
 	</div>
 	<hr>
-<ul>
-	<span>Search: </span><input ng-model="transaction.query">
+	<input class="form-control search-bar" ng-model="transaction.query" placeholder="Search">
+	<div class="update-order-wrapper" ng-show="transactions.list.length > 1">
+		<div class="btn btn-default" ng-click="transactions.updateOrder = !transactions.updateOrder" ng-show="!transactions.updateOrder">Update Listing Order</div>
+		<div class="btn btn-default" ng-click="saveReorder(transactions, 'transaction')" ng-show="transactions.updateOrder">Save Order</div>
+		<div class="btn btn-default" ng-click="cancelReorder(transactions)" ng-show="transactions.updateOrder">Cancel</div>
+	</div><br><br>
 	<hr>
-  <div ng-repeat="transaction in transactions.list | filter:transaction.query">
+  <div ng-repeat="transaction in transactions.list | filter:transaction.query | orderBy:'positionTemp'">
   		<div class="container">
   			<div class="row">
 	  			<div class="col-md-5">
@@ -71,10 +92,12 @@
 	  			</div>
 	  			<div class="col-md-7">
 	  				<div ng-show="!transaction.update">
+	  				<h3>[[ transaction.positionTemp ]]</h3>
 					<h3>[[ transaction.name ]]</h3>
 					<h5>Address: [[ transaction.address ]]</h5>
 					<h5>Amount: [[ transaction.money ]]</h5>
 					</div>
+					<br><br>
 					<div class="update-container" ng-show="transaction.update">
 					<form role="form" class="add-transaction-form form-horizontal">
 						<div class="form-group">
@@ -94,15 +117,25 @@
 					</form>
 					</div>
 					<hr>
-					<div class="btn btn-default" ng-click="deleteTransaction(transaction)">Delete</div>
-					<div class="btn btn-default" ng-click="transaction.update = true">Update</div>
+					<div class="update-btn-container" ng-show="!transactions.updateOrder">
+						<div class="btn btn-default" ng-click="deleteItem(transaction, 'transaction', transactions)">Delete</div>
+						<div class="btn btn-default" ng-click="transaction.update = true">Update</div>
+					</div>
+
+					<div class="updateOrder-btn-container" ng-show="transactions.updateOrder">
+						<div class="btn btn-default" ng-disabled="transaction.positionTemp == 0" ng-click="moveToTop(transactions.list, transaction.positionTemp)"><i class="fa fa-angle-double-up"></i></div>
+						<div class="btn btn-default" ng-disabled="transaction.positionTemp == 0" ng-click="moveUp(transactions.list, transaction.positionTemp)"><i class="fa fa-angle-up"></i></div>
+						<div class="btn btn-default" ng-disabled="transaction.positionTemp == transactions.list.length - 1" ng-click="moveDown(transactions.list, transaction.positionTemp)"><i class="fa fa-angle-down"></i></div>
+						<div class="btn btn-default" ng-disabled="transaction.positionTemp == transactions.list.length - 1" ng-click="moveToBottom(transactions.list, transaction.positionTemp)"><i class="fa fa-angle-double-down"></i></div>
+					</div>
+					<hr>
+					<br>
 	  			</div>
   			</div>
   		</div>
 	
 	<br>
   </div>
-</ul>
 </div>
 
 
@@ -123,12 +156,18 @@
 		</form>
 	</div>
 	<hr>
-  <div class="col-md-12" ng-repeat="testimonial in brokerTestimonials.list">
-  	<div ng-show="!testimonial.update">
-	  	<div><b>[[ $index + 1 ]].</b></div>
+	<div class="update-order-wrapper" ng-show="brokerTestimonials.list.length > 1">
+		<div class="btn btn-default" ng-click="brokerTestimonials.updateOrder = !brokerTestimonials.updateOrder" ng-show="!brokerTestimonials.updateOrder">Update Listing Order</div>
+		<div class="btn btn-default" ng-click="saveReorder(brokerTestimonials, 'testimonial')" ng-show="brokerTestimonials.updateOrder">Save Order</div>
+		<div class="btn btn-default" ng-click="cancelReorder(brokerTestimonials)" ng-show="brokerTestimonials.updateOrder">Cancel</div>
+	</div>
+	<div class="col-md-12" ng-repeat="testimonial in brokerTestimonials.list | orderBy:'positionTemp'">
+		<div ng-show="!testimonial.update">
+		<!-- <div><b>[[ $index + 1 ]].</b></div> -->
 	    <div><b>Name:</b> [[ testimonial.name ]]</div>
 		<div><b>Quote:</b> [[ testimonial.quote ]]</div>
 		</div>
+		<br><br>
 		<div class="update-container" ng-show="testimonial.update">
 		<form role="form" class="add-transaction-form form-horizontal">
 			<div class="form-group">
@@ -139,16 +178,24 @@
 			    <label>Quote</label>
 			    <textarea rows="4" class="form-control" name="address" ng-model="testimonial.quoteTemp"></textarea>
 		  	</div>
-		  	<button class="btn btn-default" ng-click="updateBrokerTestimonial(testimonial)">Save</button>
+		  	<button class="btn btn-default" ng-click="updateTestimonial(testimonial)">Save</button>
 		  	<button class="btn btn-default" ng-click="testimonial.update = false">Cancel</button>
+		  	<hr>
 		</form>
 		</div>
+		<div class="update-btn-container" ng-show="!brokerTestimonials.updateOrder">
+			<div class="btn btn-default" ng-click="deleteItem(testimonial, 'testimonial', brokerTestimonials)">Delete</div>
+			<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
+		</div>
+		<div class="updateOrder-btn-container" ng-show="brokerTestimonials.updateOrder">
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveToTop(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-up"></i></div>
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveUp(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-up"></i></div>
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == brokerTestimonials.list.length - 1" ng-click="moveDown(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-down"></i></div>
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == brokerTestimonials.list.length - 1" ng-click="moveToBottom(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-down"></i></div>
+		</div>
 		<hr>
-		<div class="btn btn-default" ng-click="deleteBrokerTestimonial(testimonial)">Delete</div>
-		<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
-	<br>
-	<br>
-  </div>
+		<br>
+	</div>
 </div>
 
 
@@ -169,12 +216,20 @@
 		</form>
 	</div>
 	<hr>
-	<div class="col-md-12" ng-repeat="testimonial in borrowerTestimonials.list">
+	<div class="update-order-wrapper" ng-show="borrowerTestimonials.list.length > 1">
+		<div class="btn btn-default" ng-click="borrowerTestimonials.updateOrder = !borrowerTestimonials.updateOrder" ng-show="!borrowerTestimonials.updateOrder">Update Listing Order</div>
+		<div class="btn btn-default" ng-click="saveReorder(borrowerTestimonials, 'testimonial')" ng-show="borrowerTestimonials.updateOrder">Save Order</div>
+		<div class="btn btn-default" ng-click="cancelReorder(borrowerTestimonials)" ng-show="borrowerTestimonials.updateOrder">Cancel</div>
+	</div>
+	<div class="col-md-12" ng-repeat="testimonial in borrowerTestimonials.list | orderBy:'positionTemp'">
 		<div ng-show="!testimonial.update">
-	  	<div><b>[[ $index + 1 ]].</b></div>
+		<!-- <div><b>[[ $index + 1 ]].</b></div> -->
+<!-- 		<div><b>temp:</b> [[ testimonial.positionTemp ]]</div>
+		<div><b>pos:</b> [[ testimonial.position ]]</div> -->
 	    <div><b>Name:</b> [[ testimonial.name ]]</div>
 		<div><b>Quote:</b> [[ testimonial.quote ]]</div>
 		</div>
+		<br><br>
 		<div class="update-container" ng-show="testimonial.update">
 		<form role="form" class="add-transaction-form form-horizontal">
 			<div class="form-group">
@@ -185,14 +240,22 @@
 			    <label>Quote</label>
 			    <textarea rows="4" class="form-control" name="address" ng-model="testimonial.quoteTemp"></textarea>
 		  	</div>
-		  	<button class="btn btn-default" ng-click="updateBorrowerTestimonial(testimonial)">Save</button>
+		  	<button class="btn btn-default" ng-click="updateTestimonial(testimonial)">Save</button>
 		  	<button class="btn btn-default" ng-click="testimonial.update = false">Cancel</button>
+		  	<hr>
 		</form>
 		</div>
+		<div class="update-btn-container" ng-show="!borrowerTestimonials.updateOrder">
+			<div class="btn btn-default" ng-click="deleteItem(testimonial, 'testimonial', borrowerTestimonials)">Delete</div>
+			<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
+		</div>
+		<div class="updateOrder-btn-container" ng-show="borrowerTestimonials.updateOrder">
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveToTop(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-up"></i></div>
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveUp(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-up"></i></div>
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == borrowerTestimonials.list.length - 1" ng-click="moveDown(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-down"></i></div>
+			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == borrowerTestimonials.list.length - 1" ng-click="moveToBottom(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-down"></i></div>
+		</div>
 		<hr>
-		<div class="btn btn-default" ng-click="deleteBorrowerTestimonial(testimonial)">Delete</div>
-		<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
-		<br>
 		<br>
 	</div>
 </div>

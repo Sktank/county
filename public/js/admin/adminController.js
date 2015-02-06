@@ -5,6 +5,7 @@ var adminApp = angular.module('adminApp', [], function ($interpolateProvider) {
 
 adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.contacts = {};
+  $scope.contacts.viewArchive = false;
   $scope.view = {};
   $scope.view.contacts = true;
   $scope.transactions = {};
@@ -13,6 +14,10 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.borrowerTestimonials = {};
 	$http.get('/api/contacts')
   .success(function(data) {
+    for (var i = 0; i < data.contacts.length; i++) {
+        var date = new Date(data.contacts[i].time)
+        data.contacts[i].date = date.toString();
+    }
 		console.log(data.contacts);
   	$scope.contacts.list = data.contacts;
 	})
@@ -29,6 +34,7 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       transaction.nameTemp = transaction.name;
       transaction.addTemp = transaction.address;
       transaction.monTemp = transaction.money;
+      transaction.positionTemp = transaction.position;
     }
   })
   .error(function (message) {
@@ -44,6 +50,7 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       var testimonial = $scope.brokerTestimonials.list[i];
       testimonial.nameTemp = testimonial.name;
       testimonial.quoteTemp = testimonial.quote;
+      testimonial.positionTemp = testimonial.position;
     }
   })
   .error(function (message) {
@@ -59,6 +66,7 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       var testimonial = $scope.borrowerTestimonials.list[i];
       testimonial.nameTemp = testimonial.name;
       testimonial.quoteTemp = testimonial.quote;
+      testimonial.positionTemp = testimonial.position;
     }
   })
   .error(function (message) {
@@ -92,12 +100,14 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.createNewTransaction = function (newTransaction) {
 		// console.log(newTransaction);
     console.log(newTransaction);
+    newTransaction.position = $scope.transactions.list.length;
     $http.post('/api/transaction/create', newTransaction)
     .success(function(data) {
       console.log(data);
       data.nameTemp = data.name;
       data.addTemp = data.address;
       data.monTemp = data.money;
+      data.positionTemp = data.position;
       $scope.transactions.list.push(data);
       $scope.newTransaction = {};
       $('#transactionUploader').val(null);
@@ -107,25 +117,6 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
     })
 	}
 
-  $scope.deleteTransaction = function (transaction) {
-    console.log(transaction);
-    var id = transaction._id;
-    $http.post('/api/transaction/delete', transaction)
-    .success(function(data) {
-      console.log(data);
-      for (var i = 0; i < $scope.transactions.list.length; i++) {
-        if ($scope.transactions.list[i]._id === id) {
-          console.log(id)
-          $scope.transactions.list.splice(i, 1);
-          break;
-        }
-      }
-    })
-    .error(function (message) {
-      console.log(message)
-    })
-  }
-
   $scope.updateTransaction = function (transaction) {
     console.log(transaction);
     var id = transaction._id;
@@ -133,17 +124,9 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
     $http.post('/api/transaction/update', transaction)
     .success(function(data) {
       console.log(data);
-      for (var i = 0; i < $scope.transactions.list.length; i++) {
-        if ($scope.transactions.list[i]._id === id) {
-          console.log(id)
-          $scope.transactions.list.splice(i, 1);
-          break;
-        }
-      }
-      data.nameTemp = data.name;
-      data.addTemp = data.address;
-      data.monTemp = data.money;
-      $scope.transactions.list.push(data);
+      testimonial.name = testimonial.nameTemp;
+      testimonial.address = testimonial.addTemp;
+      testimonial.money = testimonial.monTemp;
     })
     .error(function (message) {
       console.log(message)
@@ -157,12 +140,18 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.createNewTestimonial = function (testimonial, type) {
     // console.log(newTransaction);
     testimonial.type = type;
+    if (testimonial.type === 'broker') {
+      testimonial.position = $scope.brokerTestimonials.list.length;
+    } else {
+      testimonial.position = $scope.borrowerTestimonials.list.length;
+    }
     console.log(testimonial);
     $http.post('/api/testimonial/create', testimonial)
     .success(function(data) {
       console.log(data);
       data.nameTemp = data.name;
       data.quoteTemp = data.quote;
+      data.positionTemp = data.position;
       if (data.type === 'broker') {
         $scope.brokerTestimonials.list.push(data);
         $scope.newBrokerTestimonial = {};
@@ -176,16 +165,25 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
     })
   }
 
-  $scope.deleteBrokerTestimonial = function (testimonial) {
-    console.log(testimonial);
-    var id = testimonial._id;
-    $http.post('/api/testimonial/delete', testimonial)
+
+  $scope.deleteItem = function (item, itemType, section) {
+    console.log(item);
+    var id = item._id;
+    var list = section.list;
+    $http.post('/api/' + itemType + '/delete', item)
     .success(function(data) {
       console.log(data);
-      for (var i = 0; i < $scope.brokerTestimonials.list.length; i++) {
-        if ($scope.brokerTestimonials.list[i]._id === id) {
+      for (var i = 0; i < list.length; i++) {
+        if (list[i]._id === id) {
           console.log(id)
-          $scope.brokerTestimonials.list.splice(i, 1);
+          var position = list[i].positionTemp;
+          list.splice(i, 1);
+          for (var j = 0; j < list.length; j++) {
+            if (list[j].positionTemp > position) {
+              list[j].positionTemp--;
+            }
+          }
+          $scope.saveReorder(section);
           break;
         }
       }
@@ -195,66 +193,107 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
     })
   }
 
-  $scope.updateBrokerTestimonial = function (testimonial) {
+  $scope.updateTestimonial = function (testimonial) {
     console.log(testimonial);
     var id = testimonial._id;
     delete testimonial.update;
     $http.post('/api/testimonial/update', testimonial)
     .success(function(data) {
       console.log(data);
-      for (var i = 0; i < $scope.brokerTestimonials.list.length; i++) {
-        if ($scope.brokerTestimonials.list[i]._id === id) {
-          console.log(id)
-          $scope.brokerTestimonials.list.splice(i, 1);
-          break;
-        }
-      }
-      data.nameTemp = data.name;
-      data.quoteTemp = data.quote;
-      $scope.brokerTestimonials.list.push(data);
+      testimonial.name = testimonial.nameTemp;
+      testimonial.quote = testimonial.quoteTemp;
     })
     .error(function (message) {
       console.log(message)
     })
   }
 
-
-  $scope.deleteBorrowerTestimonial = function (testimonial) {
-    console.log(testimonial);
-    var id = testimonial._id;
-    $http.post('/api/testimonial/delete', testimonial)
-    .success(function(data) {
-      console.log(data);
-      for (var i = 0; i < $scope.brokerTestimonials.list.length; i++) {
-        if ($scope.brokerTestimonials.list[i]._id === id) {
-          console.log(id)
-          $scope.borrowerTestimonials.list.splice(i, 1);
-          break;
-        }
+  $scope.moveToTop = function (list, currentPosition) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].positionTemp < currentPosition) {
+        list[i].positionTemp++;
+      } else if (list[i].positionTemp == currentPosition) {
+        list[i].positionTemp = 0;
       }
-    })
-    .error(function (message) {
-      console.log(message)
-    })
+    }
   }
 
-  $scope.updateBorrowerTestimonial = function (testimonial) {
-    console.log(testimonial);
-    var id = testimonial._id;
-    delete testimonial.update;
-    $http.post('/api/testimonial/update', testimonial)
+  $scope.moveUp = function (list, currentPosition) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].positionTemp == currentPosition - 1) {
+        list[i].positionTemp++;
+      } else if (list[i].positionTemp == currentPosition) {
+        list[i].positionTemp--;
+      }
+    }
+  }
+
+  $scope.moveDown = function (list, currentPosition) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].positionTemp == currentPosition + 1) {
+        list[i].positionTemp--;
+      } else if (list[i].positionTemp == currentPosition) {
+        list[i].positionTemp++;
+      }
+    }
+  }
+
+  $scope.moveToBottom = function (list, currentPosition) {
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].positionTemp > currentPosition) {
+        list[i].positionTemp--;
+      } else if (list[i].positionTemp == currentPosition) {
+        list[i].positionTemp = list.length - 1;
+      }
+    }
+  }
+
+  $scope.cancelReorder = function (section) {
+    var list = section.list
+    for (var i = 0; i < list.length; i++) {
+      list[i].positionTemp = list[i].position;
+    }
+    section.updateOrder = false;
+  }
+
+  $scope.saveReorder = function (section, itemType) {
+    var list = section.list
+    console.log(list);
+    for (var i = 0; i < list.length; i++) {
+      if (list[i].position != list[i].positionTemp) {
+         var item = list[i];
+         // update the position of this testimonial
+         $http.post('/api/' + itemType + '/update', item)
+          .success(function(data) {
+            item.position = item.positionTemp;
+        })
+      }
+    }
+    section.updateOrder = false;
+  }
+
+
+  $scope.toggleArchive = function (contact) {
+    contact.archived = !contact.archived;
+    $http.post('/api/contact/toggleArchive', contact)
+      .success(function(data) {
+        contact._id = data._id;
+      })
+  }
+
+  $scope.deleteContact = function (contact) {
+    var id = contact._id;
+    var list = $scope.contacts.list;
+    $http.post('/api/contact/delete', contact)
     .success(function(data) {
       console.log(data);
-      for (var i = 0; i < $scope.borrowerTestimonials.list.length; i++) {
-        if ($scope.brokerTestimonials.list[i]._id === id) {
+      for (var i = 0; i < list.length; i++) {
+        if (list[i]._id === id) {
           console.log(id)
-          $scope.borroweTestimonials.list.splice(i, 1);
+          list.splice(i, 1);
           break;
         }
       }
-      data.nameTemp = data.name;
-      data.quoteTemp = data.quote;
-      $scope.borrowerTestimonials.list.push(data);
     })
     .error(function (message) {
       console.log(message)

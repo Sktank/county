@@ -50,12 +50,17 @@ module.exports = function(app, passport) {
             return false;
         }
 
+        var date = new Date();
+        var now = date.getTime();
+
         var contact            = new Contact();
 
         // set the user's local credentials
         contact.name           = name;
         contact.email          = email;
         contact.message        = message;
+        contact.time           = now;
+        contact.archived       = false;
         // save the user
         contact.save(function(err) {
             if (err)
@@ -124,19 +129,19 @@ module.exports = function(app, passport) {
         var form = req.body;
         console.log(form);
         // get the fields
-        var name = form.name,
-            address = form.address,
-            money = form.money,
-            img   = form.imgName;
+        var name       = form.name,
+            address    = form.address,
+            money      = form.money,
+            img        = form.imgName,
+            position   = form.position;
 
-        console.log(name);
-        console.log(address);
-        console.log(money);
         var transaction            = new Transaction();
         transaction.name           = name;
         transaction.address        = address;
         transaction.money          = money;
         transaction.img            = img;
+        transaction.position       = position;
+
         transaction.save(function(err, model) {
             if (err)
                 throw err;
@@ -164,9 +169,11 @@ module.exports = function(app, passport) {
         form.name = form.nameTemp;
         form.address = form.addTemp;
         form.money = form.monTemp;
+        form.position = form.positionTemp;
         delete form.nameTemp;
         delete form.addTemp;
         delete form.monTemp;
+        delete form.positionTemp;
         // get the fields
         console.log(form);
         console.log(form._id);
@@ -191,13 +198,16 @@ module.exports = function(app, passport) {
         // get the fields
         var name = form.name,
             quote = form.quote,
-            type = form.type;
+            type = form.type,
+            position = form.position;
 
 
         var testimonial            = new Testimonial();
         testimonial.name           = name;
         testimonial.quote          = quote;
         testimonial.type           = type;
+        testimonial.position       = position;
+
         testimonial.save(function(err, model) {
             if (err)
                 throw err;
@@ -223,8 +233,10 @@ module.exports = function(app, passport) {
         var form = req.body;
         form.name = form.nameTemp;
         form.quote = form.quoteTemp;
+        form.position = form.positionTemp;
         delete form.nameTemp;
         delete form.quoteTemp;
+        delete form.positionTemp;
         // get the fields
         console.log(form);
         console.log(form._id);
@@ -238,6 +250,32 @@ module.exports = function(app, passport) {
         })
     })
 
+
+    app.post('/api/contact/toggleArchive', function (req, res) {
+        var form = req.body;
+        var id = form._id;
+        delete form._id;
+        Contact.findByIdAndUpdate(id, form, function(err, model) {
+            if (err)
+                throw err;
+            console.log('testimonial should be updated!');
+            res.json(model);
+        })
+    })
+
+
+    app.post('/api/contact/delete', function (req, res) {
+        var form = req.body;
+        // get the fields
+        console.log(form);
+        console.log(form._id);
+        Contact.findByIdAndRemove(form._id, function(err, model) {
+            if (err)
+                throw err;
+            console.log('testimonial should be deleted!');
+            res.json(model);
+        })
+    })
 
 
     app.get('/contact', function (req, res) {
@@ -343,11 +381,21 @@ module.exports = function(app, passport) {
         })
     })
 
+    function compareOrder(a,b) {
+      if (a.position < b.position)
+         return -1;
+      if (a.position > b.position)
+        return 1;
+      return 0;
+    }
+
+
     app.get('/transactions', function(req, res) {
         Transaction.find({}, function(err, transactions) {
             if (err) {
                 throw err;
             } else {
+                transactions.sort(compareOrder);
                 res.render('transactions.html', {transactions: transactions});
             }
         })
@@ -358,6 +406,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
+                testimonials.sort(compareOrder);
                 res.render('testimonials.html', {testimonials: testimonials});
             }
         })
@@ -368,6 +417,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
+                testimonials.sort(compareOrder);
                 res.render('broker-testimonials.html', {testimonials: testimonials});
             }
         })
