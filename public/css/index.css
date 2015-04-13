@@ -2,6 +2,10 @@ h2 {
 	border-bottom: none;
 }
 
+/*body {
+	background: url(../img/page-background.png);
+}*/
+
 .logo-img {
 	margin-top: -70px;
 }
@@ -32,6 +36,7 @@ h2 {
 
 .mainmenu {
 	margin-left: 25%;
+	margin-top: -50px;
 	transition: all .2s linear;
 }
 
@@ -55,7 +60,7 @@ h2 {
 	border-top: none;
 	min-width: 173px;
 	/*padding: 0px;*/
-	/*opacity: 0.95;*/
+	/*opacity: 0.93;*/
 }
 
 .dropdown:hover {
@@ -105,8 +110,15 @@ h2 {
 	}
 }
 
+
+
 .mainmenu-wrapper {
 	padding-top: 75px;
+	border-bottom: 2px solid #4f8db3;
+}
+
+.mainmenu-wraper-home {
+	border-bottom: none;
 }
 
 .harbor-image {
@@ -160,7 +172,7 @@ h2 {
 
 .logo-wrapper {
 	width: 100%;
-	position: absolute;
+	/*position: absolute;*/
 }
 
 .nav-tabs > li {
@@ -178,6 +190,29 @@ h2 {
 	background-color: #4f8db3;
 	color: white;
 
+}
+
+.criteria-tabs > .nav-tabs > li {
+	font-size: inherit;
+	font-weight: inherit;
+	padding: inherit;
+	background-color: inherit;
+	border: inherit;
+	cursor: pointer;
+	color: #4f8db3;
+	text-align: center;
+}
+
+.criteria-tabs > .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+	/*background-color: #4f8db3;*/
+	border: 1px solid #4f8db3;
+	color: #3E8033;
+	border-bottom: none;
+
+}
+
+.criteria-tabs {
+	margin-top: 40px;
 }
 
 .transaction-img {
@@ -213,7 +248,7 @@ h2 {
   padding-top: 50px;
   padding-bottom: 50px;
   margin-top: -30px;
-  border-top: 4px solid rgb(32, 71, 106);
+  /*border-top: 4px solid rgb(32, 71, 106);*/
   /*border-bottom: 2px solid grey;*/
 
 }
@@ -410,6 +445,10 @@ right: 20px;
 .team-header {
 	padding-left: 0px;
 	text-align: center;
+}
+
+.team-container {
+	margin-top: 30px;
 }
 
 .employee-container {
@@ -679,7 +718,7 @@ h2 {
 .box2 h3{
 	text-align:center;
 	position:relative;
-	top:30px;
+	top:40px;
 }
 
 #loan-parameters-header {
@@ -688,14 +727,15 @@ h2 {
 
 .box2 table{
 	position:relative;
-	top: 57px;
+	top: 65px;
 }
 
 .box2 {
 	/*width:85%;*/
 	/*height:500px;*/
 	background:#FFF;
-	margin:70px auto;
+	margin:-22px auto;
+	margin-bottom: 50px;
 	padding: 0px 70px 130px 70px; 
 }
 
@@ -836,4 +876,8 @@ h2 {
 .archive-btns-wrapper {
 	float: right;
 	margin-top: -20px;
+}
+
+.hidden {
+	visibility: hidden;
 }

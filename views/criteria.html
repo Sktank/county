@@ -24,7 +24,7 @@
 </div> -->
 
 <!-- next we want some quick facts -->
-<div class="row interest-info-row">
+<!-- <div class="row interest-info-row">
 	<div class="col-md-4">
 		<h4 class="criteria-header">Property Types</h4>
 		<hr class="criteria-hr">
@@ -55,40 +55,103 @@
 			<li>Land</li>
 		</ul>
 	</div>
-</div>
+</div> -->
 
 <!-- <div class="col-md-6 col-md-offset-3 criteria-table-wrapper"> -->
+<div class="criteria-tabs">
+<ul class="nav nav-tabs">
+  <li role="presentation" id="investment-button"><a>Investment Non-Owner Occupied</a></li>
+  <li role="presentation" id="residential-button"><a>Residential Owner Occupied</a></li>
+</ul>
+</div>
+
 <div class="box2 effect8">
-	<h3 id="loan-parameters-header">Loan Parameters</h3>
-	<h3>Interest Rates 7.9% to 9.9%</h3>
+	<div class="investment-criteria">
+	<h3 id="loan-parameters-header">Investment Loan Parameters</h3>
 	<table class="loan-parameters-table">
 		<tbody>
 			<tr>
-				<td>Loan Size</td><td>$100,000 – $3 million</td>
+				<td>Loan Amount</td><td>$100,000 to $200,000</td>
 			</tr>
 			<tr>
-				<td>Loan Term</td><td>6 -12 Month Terms – Extensions available at lender discretion</td>
+				<td>Loan Term/Amortization</td><td>12 month interest only</td>
 			</tr>
 			<tr>
-				<td>Loan Category</td><td>Private Commercial (“Hard Money”)</td>
+				<td>Maximum LTV</td><td>50% LTV</td>
 			</tr>
 			<tr>
-				<td>Payments</td><td>Payments are interest-only due every 30 days, 1st mortgages only</td>
+				<td>Subordinated Financing</td><td>Yes, 20% Down, 30% Seller’s Second Mortgage</td>
 			</tr>
 			<tr>
-				<td>Down Payment</td><td>Minimum of 5% down payments on total cost, determined by scenario</td>
+				<td>Minimum Fico Score</td><td>N/A</td>
 			</tr>
 			<tr>
-				<td>Security</td><td>1st Mortgage Loans Only</td>
+				<td>Fixed Period</td><td>1 Year</td>
 			</tr>
 			<tr>
-				<td>Time to Close</td><td>5 – 7 Business Days – Subject to Title</td>
+				<td>Eligible Borrower</td><td>C-Corp, LLC, LP/LLP, S-Corp</td>
 			</tr>
 			<tr>
-				<td>Lending Areas</td><td>Massachusetts, New Hampshire, Maine, Connecticut, and others available depending on area/loan scenario</td>
+				<td>Tax and Insurance Escrows</td><td>Monthly deposits</td>
+			</tr>
+			<tr>
+				<td>Guaranty</td><td>Yes</td>
+			</tr>
+			<tr>
+				<td>Prepayment</td><td>None</td>
+			</tr>
+			<tr>
+				<td>Transaction Type</td><td>Purchase, Refinance, Cash Out Refinance</td>
+			</tr>
+			<tr>
+				<td>Property Types</td><td>5+ Units on Multifamily, Mixed-Used, Commercial, Office, Retail, Social Club</td>
 			</tr>
 		</tbody>
 	</table>
+	</div>
+	<div class="residential-criteria hidden">
+	<h3 id="loan-parameters-header">Residential Loan Parameters</h3>
+	<table class="loan-parameters-table">
+		<tbody>
+			<tr>
+				<td>Loan Amount</td><td>$100,000 to $200,000</td>
+			</tr>
+			<tr>
+				<td>Loan Term/Amortization</td><td>Fixed 30 years loan fully amortizing</td>
+			</tr>
+			<tr>
+				<td>Maximum LTV</td><td>60% LTV</td>
+			</tr>
+			<tr>
+				<td>Subordinated Financing</td><td>No</td>
+			</tr>
+			<tr>
+				<td>Minimum Fico Score</td><td>No Minimum</td>
+			</tr>
+			<tr>
+				<td>Eligible Borrower</td><td>Individual C-Corp, LLC, LP/LLP, S-Corp</td>
+			</tr>
+			<tr>
+				<td>Tax and Insurance Escrows</td><td>Yes</td>
+			</tr>
+			<tr>
+				<td>Guaranty</td><td>Full Recourse Loan</td>
+			</tr>
+			<tr>
+				<td>Prepayment</td><td>None</td>
+			</tr>
+			<tr>
+				<td>Transaction Type</td><td>Purchase, Refinance</td>
+			</tr>
+			<tr>
+				<td>Property Types</td><td>SFR, Duplex, Triplex, Fourplex</td>
+			</tr>
+			<tr>
+				<td>Brokers</td><td>Protected</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 </div>
 <!-- </div> -->
 
@@ -146,4 +209,40 @@
 </div>
 </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+		$("#residential-button").click(function () {
+			$("#investment-button").removeClass("active");
+			$(".investment-criteria").fadeOut(400, function() {
+				$(".investment-criteria").hide()
+				$(".residential-criteria").show()
+			})
+			$("#residential-button").addClass("active");
+			//$(".residential-criteria").removeClass("hidden");
+		})
+
+		$("#investment-button").click(function () {
+			$("#residential-button").removeClass("active");
+			$(".residential-criteria").fadeOut(400, function() {
+				$(".residential-criteria").hide()
+				$(".investment-criteria").show()
+			})
+			$("#investment-button").addClass("active");
+		})
+
+		// trigger click based on url
+		var type = window.location.href.split("#")[1]
+		if (type === "investment") {
+			$("#investment-button").addClass("active");
+			$(".residential-criteria").hide()
+			$(".residential-criteria").removeClass("hidden");
+		} else {
+			$("#residential-button").addClass("active");
+			$(".investment-criteria").hide()
+			$(".residential-criteria").removeClass("hidden");
+		}
+		console.log(window.location.pathname);
+</script>
 {% endblock %}

@@ -37,7 +37,7 @@
 
         {% block header %}
     
-            <div class="mainmenu-wrapper">
+            <div class="mainmenu-wrapper {% block home-active-border-1 %}{% endblock %}">
                 <div class="logo-wrapper"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img><span class="brand-span">County Mortgage, LLC</span><span class="phone-span">NMLS # 2162</span></div>
 <!--                     <div class="menuextras">
                         <div class="extras">
@@ -49,11 +49,11 @@
                     <nav id="mainmenu" class="mainmenu">
                         <ul>
                             <li {% block home-active %}{% endblock %}>
-                                <a class="navbar-link" href="/">Home</a>
+                                <a class="navbar-link" href="/">HOME</a>
                             </li>
                             <li {% block about-active %}{% endblock %}>
                                 <div id="about-dropdown" class="dropdown">
-                                    <a class="nav-header-link navbar-link" href="about">About</a>
+                                    <a class="nav-header-link navbar-link" href="about">ABOUT</a>
                                     <div class="dropdown-menu">
                                         <a href="about">About Us</a>
                                         <a href="team">Our Team</a>
@@ -62,19 +62,20 @@
                             </li>
                             <li {% block borrowers-active %}{% endblock %}>
                                 <div id="borrowers-dropdown" class="dropdown">
-                                    <a class="nav-header-link navbar-link" href="borrowers">Borrowers</a>
+                                    <a class="nav-header-link navbar-link" href="borrowers">BORROWERS</a>
                                     <div class="dropdown-menu">
                                         <a href="transactions">Recent Transactions</a>
                                         <a href="borrower-testimonials">Testimonials</a>
-                                        <a href="loan-criteria">Loan Criteria</a>
-                                        <a href="glossary">Glossary</a>
-                                        <a href="resources">Application Resources</a>
+                                        <a href="loan-criteria#investment">Loan Criteria</a>
+                                        <a href="owner-occupied">Owner Occupied <br> 1-4 Family</a>
+                                        <a href="commercial">Commercial</a>
+                                        <a href="construction">Construction</a>
                                     </div>
                                 </div>
                             </li>
                             <li {% block brokers-active %}{% endblock %}>
                                 <div id="brokers-dropdown" class="dropdown">
-                                    <a class="nav-header-link navbar-link" href="brokers">Brokers</a>
+                                    <a class="nav-header-link navbar-link" href="brokers">BROKERS</a>
                                     <div class="dropdown-menu">
                                         <a href="transactions">Recent Transactions</a>
                                         <a href="broker-testimonials">Testimonials</a>
@@ -83,7 +84,7 @@
                             </li>
                             <li {% block resources-active %}{% endblock %}>
                                 <div id="resources-dropdown" class="dropdown">
-                                    <a class="nav-header-link navbar-link" href="borrowers">Resources</a>
+                                    <a class="nav-header-link navbar-link" href="borrowers">RESOURCES</a>
                                     <div class="dropdown-menu">
                                         <a href="glossary">Glossary</a>
                                         <a href="resources">Application Resources</a>
@@ -91,7 +92,7 @@
                                 </div>
                             </li>
                             <li {% block contact-active %}{% endblock %}>
-                                <a class="navbar-link" href="contact">Contact</a>
+                                <a class="navbar-link" href="contact">CONTACT</a>
                             </li>
                         </ul>
                     </nav>

@@ -302,6 +302,10 @@ module.exports = function(app, passport) {
         res.render('criteria.html');
     });
 
+    // app.get('/loan-criteria#residential', function (req, res) {
+    //     res.render('criteria.html');
+    // });
+
         // =====================================
     // LOGIN ===============================
     // =====================================
@@ -422,6 +426,22 @@ module.exports = function(app, passport) {
             }
         })
     })
+
+    app.get('/owner-occupied', function (req, res) {
+        res.render('owner-occupied.html');
+    });
+
+    app.get('/commercial', function (req, res) {
+        res.render('commercial.html');
+    });
+
+    app.get('/construction', function (req, res) {
+        res.render('construction.html');
+    });
+
+    app.get('/glossary', function (req, res) {
+        res.render('glossary.html');
+    });
 
     app.get('/logout', function(req, res) {
         req.logout();
