@@ -56,16 +56,12 @@
 		<h4>Add New Transaction</h4>
 		<form role="form" class="add-transaction-form"  enctype="multipart/form-data">
 			<div class="form-group">
-			    <label>Name *</label>
+			    <label>Title *</label>
 			    <input class="form-control" name="name" ng-model="newTransaction.name">
 		  	</div>
 		  	<div class="form-group">
-			    <label>Address *</label>
+			    <label>Description *</label>
 			    <input class="form-control" name="address" ng-model="newTransaction.address">
-		  	</div>
-		  	<div class="form-group">
-			    <label>Monies *</label>
-			    <input class="form-control" name="money" ng-model="newTransaction.money">
 		  	</div>
 		  	<div class="form-group">
 			    <label>Image</label>
@@ -94,8 +90,7 @@
 	  				<div ng-show="!transaction.update">
 	  				<h3>[[ transaction.positionTemp ]]</h3>
 					<h3>[[ transaction.name ]]</h3>
-					<h5>Address: [[ transaction.address ]]</h5>
-					<h5>Amount: [[ transaction.money ]]</h5>
+					<h5>[[ transaction.address ]]</h5>
 					</div>
 					<br><br>
 					<div class="update-container" ng-show="transaction.update">
@@ -107,10 +102,6 @@
 					  	<div class="form-group">
 						    <label>Address</label>
 						    <input class="form-control" name="address" ng-model="transaction.addTemp">
-					  	</div>
-					  	<div class="form-group">
-						    <label>Monies</label>
-						    <input class="form-control" name="money" ng-model="transaction.monTemp">
 					  	</div>
 					  	<button class="btn btn-default" ng-click="updateTransaction(transaction)">Save</button>
 					  	<button class="btn btn-default" ng-click="transaction.update = false">Cancel</button>

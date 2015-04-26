@@ -106,7 +106,6 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       console.log(data);
       data.nameTemp = data.name;
       data.addTemp = data.address;
-      data.monTemp = data.money;
       data.positionTemp = data.position;
       $scope.transactions.list.push(data);
       $scope.newTransaction = {};

@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 var transactionSchema = mongoose.Schema({
     name       : String,
     address    : String,
-    money      : String,
     img        : String,
     position   : Number,
 });

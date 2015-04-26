@@ -75,18 +75,49 @@ h2 {
 	/*border-radius: 2px;*/
 }
 
+.dropdown-menu > div > a {
+	padding: 15px;
+	display: inline-block;
+	width: 100%;
+	color: #999;
+	/*border-radius: 2px;*/
+}
+
+.dropdown-menu > a.active {
+	text-decoration: none;
+	background-color: #DFECF5;
+	color: #4f8db3;;
+}
+
+.dropdown-menu > div > a.active {
+	text-decoration: none;
+	background-color: #DFECF5;
+	color: #4f8db3;;
+}
+
 .dropdown-menu > a:hover {
 	text-decoration: none;
 	background-color: #DFECF5;
 	color: #4f8db3;;
 }
 
-/*@media screen and (min-width: 1200px) {
-	.logo-wrapper {
-		margin-right: 7%;
-	}
+.dropdown-menu > div > a:hover {
+	text-decoration: none;
+	background-color: #DFECF5;
+	color: #4f8db3;;
 }
-*/
+
+@media screen and (min-width: 1200px) {
+/*	.transaction-container:hover .transaction-img{
+		height:250px;
+		width:375px;
+	}
+
+	.transaction-container:hover .transaction-desc {
+		padding-left: 30px;
+	}*/
+}
+
 @media screen and (max-width: 1199px) {
 	.mainmenu {
 		margin-left: 10%;
@@ -220,6 +251,12 @@ h2 {
 	width: 300px;
 	border-radius: 2px;
 	border: 1px solid #4f8db3;
+	cursor: pointer;
+	transition: all .15s linear;
+}
+
+.transaction-desc {
+	transition: all .15s linear;
 }
 
 #sequence > .sequence-canvas > li.animate-in {
@@ -482,7 +519,9 @@ h2 {
 	/*height:200px;*/
 	background:#FFF;
 	padding: 25px;
+	transition: all .15s linear;
 }
+
 
 .contact-container {
 	background: url(../img/page-background.png);
@@ -881,3 +920,60 @@ h2 {
 .hidden {
 	visibility: hidden;
 }
+
+#application-resources-dropdown-side {
+	position: absolute;
+	  top: 55px;
+  	left: -172px;
+}
+
+.service-span-1 {
+	padding-left: 183px;
+}
+
+.service-span-2 {
+	padding-left: 100px;
+}
+
+.service-span-3 {
+	padding-left: 139px;
+}
+
+.service-span-4 {
+	padding-left: 123px;
+}
+
+.service-span-5 {
+	padding-left: 158px;
+}
+
+.hud-table tr {
+	border-bottom: 1px dotted #4f8db3;
+}
+
+.hud-table td {
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.hud-table th {
+	padding-top: 10px;
+	padding-left: 10px;
+}
+
+.hud-table  {
+	color: #2f556d;
+}
+
+.service-wrapper > p {
+	display: inline-block;
+	text-decoration: none;
+	color: black;
+}
+
+.service-wrapper > h3 {
+	display: inline-block;
+	text-decoration: none;
+	color: black;
+}
+

@@ -2,11 +2,13 @@ $(document).ready(function(){
 	var header = "#about-dropdown";
 
 	function hideDropdown(name) {
-		$(name + ' .dropdown-menu').css('display', 'none');
+		console.log(name);
+		$(name + ' .dropdown-menu').first().css('display', 'none');
 	}
 
 	function showDropdown(name) {
-		$(name + ' .dropdown-menu').css('display', 'inline');
+		console.log(name);
+		$(name + ' .dropdown-menu').first().css('display', 'inline');
 	}
 
 	function configDropdown(name) {
@@ -14,6 +16,26 @@ $(document).ready(function(){
 		$(name)
 		  .mouseover(function() {showDropdown(name)})
 		  .mouseout(function() {hideDropdown(name)});
+	}
+
+
+	function hideDropdownSide(name) {
+		console.log(name);
+		$(name + ' .dropdown-menu').first().css('display', 'none');
+		$("#borrower-application-popout").removeClass("active");
+	}
+
+	function showDropdownSide(name) {
+		console.log(name);
+		$(name + ' .dropdown-menu').first().css('display', 'inline');
+		$("#borrower-application-popout").addClass("active");
+	}
+
+	function configSidedown(name) {
+		console.log (name);
+		$(name)
+		  .mouseover(function() {showDropdownSide(name+"-side")})
+		  .mouseout(function() {hideDropdownSide(name+"-side")});
 	}
 
 	var header = "#about-dropdown";
@@ -24,5 +46,6 @@ $(document).ready(function(){
 	configDropdown(header);
 	header = "#resources-dropdown";
 	configDropdown(header);
-
+	header = "#application-resources-dropdown";
+	configSidedown(header);
 });

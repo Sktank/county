@@ -131,14 +131,12 @@ module.exports = function(app, passport) {
         // get the fields
         var name       = form.name,
             address    = form.address,
-            money      = form.money,
             img        = form.imgName,
             position   = form.position;
 
         var transaction            = new Transaction();
         transaction.name           = name;
         transaction.address        = address;
-        transaction.money          = money;
         transaction.img            = img;
         transaction.position       = position;
 
@@ -302,6 +300,9 @@ module.exports = function(app, passport) {
         res.render('criteria.html');
     });
 
+
+
+
     // app.get('/loan-criteria#residential', function (req, res) {
     //     res.render('criteria.html');
     // });
@@ -442,6 +443,44 @@ module.exports = function(app, passport) {
     app.get('/glossary', function (req, res) {
         res.render('glossary.html');
     });
+
+    app.get('/servicing-disclosure', function (req, res) {
+        res.render('servicing-disclosure.html');
+    });
+
+    app.get('/appraisers-list', function (req, res) {
+        res.render('appraisers-list.html');
+    });
+
+    app.get('/closing-lawyers', function (req, res) {
+        res.render('closing-lawyers.html');
+    });
+
+    app.get('/credit-bureau', function (req, res) {
+        res.render('credit-bureau.html');
+    });
+
+    app.get('/mass-buyer-info', function (req, res) {
+        res.render('mass-buyer-info.html');
+    });
+
+    app.get('/counselors', function (req, res) {
+        res.render('counselors.html');
+    });
+
+    app.get('/privacy-policy', function (req, res) {
+        res.render('privacy.html');
+    });
+
+
+
+
+    // <a href="servicing-disclosure">Servicing Disclosure</a>
+    //                                     <a href="appraisers-list">Appraisers List</a>
+    //                                     <a href="closing-lawyers">Closing Lawyers List</a>
+    //                                     <a href="glossary">Consumers Guide to Obtaining a Mortgage</a>
+    //                                     <a href="credit-bureau">Credit Bureau Websites</a>
+    //                                     <a href="mass-buyer-info">Mass.gov Home Buyer Information</a>
 
     app.get('/logout', function(req, res) {
         req.logout();
