@@ -2490,7 +2490,10 @@ span.color-red {
   }
 }
 @media screen and (max-width: 479px) {
-  .mainmenu {
+  #contact-nav-link {
+    display: none;
+  }
+  /*.mainmenu {
     font-size: 120%;
     border: none;
   }
@@ -2524,7 +2527,7 @@ span.color-red {
     width: 100%;
     float: none;
     padding: 0;
-  }
+  }*/
 }
 /*--------------------------------------------------------------------------
 +	Extras Menu (Cart, Language, Login) Style

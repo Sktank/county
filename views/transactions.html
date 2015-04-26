@@ -12,7 +12,7 @@
 	</div>
 </div>
 <div class="container padded-container">
-	<div class="col-md-10 col-md-offset-1">
+	<div class="col-md-12">
 <!-- <h1>Recent Transactions</h1> -->
 <!-- <hr> -->
 
@@ -24,8 +24,8 @@
 		  			<a class="fancybox" rel="group" href="uploads/{{ transaction.img }}"><img src="uploads/{{ transaction.img }}" alt="" class="transaction-img"/></a>
 		  			</div>
 		  			<div class="col-md-7 transaction-desc">
-						<h3>{{ transaction.name }}</h3>
-						<h5>{{ transaction.address }}</h5>
+						<h3>{{ transaction.name }}</h3><br>
+						<p>{{ transaction.address }}</p>
 		  			</div>
 			</div>
 		</div>
@@ -37,13 +37,27 @@
 
 {% block js %}
 <script type="text/javascript" src="../js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="../js/jquery.fancybox-buttons.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$(".fancybox").fancybox();
+		$(".fancybox").fancybox({
+    	helpers : {
+	        overlay : {
+	            css : {
+	                'background' : 'rgba(58, 42, 45, 0.95)'
+	            }
+	        }
+    	}
+    });
+		$(".fancybox").fancybox({
+    arrows : false
+});
 	});
 </script>
 {% endblock %}
 
 {% block css %}
 <link rel="stylesheet" href="../css/jquery.fancybox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../css/jquery.fancybox-buttons.css" type="text/css" media="screen" />
 {% endblock %}
