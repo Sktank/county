@@ -3,6 +3,8 @@ var User          = require('./models/user'),
     Contact       = require('./models/contact.js'),
     Transaction   = require('./models/transaction.js'),
     Testimonial   = require('./models/testimonial.js'),
+    Entities      = require('./models/entities.js'),
+    Meta      = require('./models/meta.js'),
     async         = require("async"),
     formidable    = require('formidable'),
     util          = require('util')
@@ -10,8 +12,25 @@ var User          = require('./models/user'),
 
 module.exports = function(app, passport) {
 
+
+    app.use(function (req, res, next) {
+        console.log('Time:', Date.now());
+        Meta.find({}, function(err, meta) {
+            if (err) {
+                throw err;
+            } else {
+                req.meta = meta[0]
+                next();
+            }
+        })
+    });
+
+
     app.get('/', function (req, res) {
-        res.render('home.html');
+        res.render('home.html',
+            {
+                meta: req.meta
+            });
     });
 
 
@@ -185,6 +204,100 @@ module.exports = function(app, passport) {
         })
     })
 
+    ////////////////////////////////////////////////////////////////
+    //                          Entities                          //
+    ////////////////////////////////////////////////////////////////
+
+    app.get('/api/entities/:type', function(req, res) {
+
+        Entities.find({type: req.params.type}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                res.json(entities);
+            }
+        })
+    })
+
+    app.post('/api/entities/save', function (req, res) {
+        var obj = req.body;
+        var id = obj.id;
+        console.log(obj)
+        console.log(id)
+        delete obj.id;
+        if (id) {
+            Entities.findByIdAndUpdate(id, obj, function (err, model) {
+                if (err)
+                    throw err;
+                console.log('entity should be updated!');
+                res.json(model);
+            })
+        } else {
+            var entities_model = new Entities(obj)
+            entities_model.save(function(err, model){
+            if (err)
+                    throw err;
+                console.log('entity should be updated!');
+                res.json(model);
+        })
+        }
+    })
+
+
+    app.get('/api/meta', function(req, res) {
+        Meta.find({}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                res.json(entities);
+            }
+        })
+    })
+
+
+    app.post('/api/meta/save', function (req, res) {
+        var obj = req.body;
+        var id = obj.id;
+        console.log(obj)
+        console.log(id)
+        delete obj.id;
+        if (id) {
+            Meta.findByIdAndUpdate(id, obj, function (err, model) {
+                if (err)
+                    throw err;
+                console.log('entity should be updated!');
+                res.json(model);
+            })
+        } else {
+            var entities_model = new Meta(obj)
+            entities_model.save(function(err, model){
+            if (err)
+                    throw err;
+                console.log('entity should be updated!');
+                res.json(model);
+        })
+    }
+
+        // form.name = form.nameTemp;
+        // form.quote = form.quoteTemp;
+        // form.position = form.positionTemp;
+        // delete form.nameTemp;
+        // delete form.quoteTemp;
+        // delete form.positionTemp;
+        // // get the fields
+        // console.log(form);
+        // console.log(form._id);
+        // var id = form._id;
+        // delete form._id;
+        // Testimonial.findByIdAndUpdate(id, form, function(err, model) {
+        //     if (err)
+        //         throw err;
+        //     console.log('testimonial should be updated!');
+        //     res.json(model);
+        // })
+    })
+
+
 
     ////////////////////////////////////////////////////////////////
     //                          Testimonials                      //
@@ -274,31 +387,6 @@ module.exports = function(app, passport) {
             res.json(model);
         })
     })
-
-
-    app.get('/contact', function (req, res) {
-        res.render('contact.html');
-    });
-
-    app.get('/brokers', function (req, res) {
-        res.render('brokers.html');
-    });
-
-    app.get('/borrowers', function (req, res) {
-        res.render('borrowers.html');
-    });
-
-    app.get('/about', function (req, res) {
-        res.render('about.html');
-    });
-
-    app.get('/team', function (req, res) {
-        res.render('team.html');
-    });
-
-    app.get('/loan-criteria', function (req, res) {
-        res.render('criteria.html');
-    });
 
 
 
@@ -428,20 +516,120 @@ module.exports = function(app, passport) {
         })
     })
 
+
+    app.get('/contact', function (req, res) {
+        res.render('contact.html');
+    });
+
+
+    app.get('/about', function (req, res) {
+        Entities.find({type: 'about'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('about.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
+    });
+
+    app.get('/team', function (req, res) {
+        Entities.find({type: 'team'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('team.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
+    });
+
+    app.get('/loan-criteria', function (req, res) {
+        Entities.find({type: 'investment'}, function(err, investment) {
+            if (err) {
+                throw err;
+            } else {
+                Entities.find({type: 'residential'}, function(err, residential) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.render('criteria.html',
+                        {
+                            investment: investment[0].list,
+                            residential: residential[0].list
+                        })
+                    }
+                })
+            }
+        })
+    });
+
     app.get('/owner-occupied', function (req, res) {
-        res.render('owner-occupied.html');
+        Entities.find({type: 'owner'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('owner-occupied.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
     });
 
     app.get('/commercial', function (req, res) {
-        res.render('commercial.html');
+        Entities.find({type: 'commercial'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('commercial.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
     });
 
     app.get('/construction', function (req, res) {
-        res.render('construction.html');
+        Entities.find({type: 'construction'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('construction.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
     });
 
     app.get('/glossary', function (req, res) {
-        res.render('glossary.html');
+        Entities.find({type: 'glossaryquestions'}, function(err, questions) {
+            if (err) {
+                throw err;
+            } else {
+                Entities.find({type: 'glossaryterms'}, function(err, terms) {
+                    if (err) {
+                        throw err;
+                    } else {
+                        res.render('glossary.html',
+                        {
+                            questions: questions[0].list,
+                            terms: terms[0].list
+                        })
+                    }
+                })
+            }
+        })
     });
 
     app.get('/servicing-disclosure', function (req, res) {
@@ -449,19 +637,59 @@ module.exports = function(app, passport) {
     });
 
     app.get('/appraisers-list', function (req, res) {
-        res.render('appraisers-list.html');
+        Entities.find({type: 'appraisers'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('appraisers-list.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
     });
 
     app.get('/closing-lawyers', function (req, res) {
-        res.render('closing-lawyers.html');
+        Entities.find({type: 'lawyers'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('closing-lawyers.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
     });
 
     app.get('/credit-bureau', function (req, res) {
-        res.render('credit-bureau.html');
+        Entities.find({type: 'credit'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('credit-bureau.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
     });
 
     app.get('/mass-buyer-info', function (req, res) {
-        res.render('mass-buyer-info.html');
+        Entities.find({type: 'massgov'}, function(err, entities) {
+            if (err) {
+                throw err;
+            } else {
+                console.log(entities[0].list);
+                res.render('mass-buyer-info.html',
+                {
+                    entities: entities[0].list
+                })
+            }
+        })
     });
 
     app.get('/counselors', function (req, res) {

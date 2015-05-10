@@ -19,7 +19,19 @@
 
 	<p><b><a href="loan-criteria#investment">View Commercial Loan Criteria</a></b></p><br>
 
-	<h4>Do I need to work with a mortgage broker?</h4>
+{% for entity in entities %}
+{% for term in entity %}
+{% if loop.first %}
+<h4>{{ term.val }}</h4><ul>
+{% else %}
+<li>{{ term.val }}</li>
+{% endif %}
+{% endfor %}
+</ul><br>
+{% endfor %}
+
+
+<!-- 	<h4>Do I need to work with a mortgage broker?</h4>
 <ul><li>You may contact us directly or go through a broker.</li></ul><br>
 <h4>How long does the process take?</h4>
 <ul><li>Most loans are closed within 3-4 weeks.</li></ul><br>
@@ -37,7 +49,7 @@
 <p>Dependent on your situation, you may require forms such as:</p>
 <ul><li>Divorce decrees, probate documents, employment contracts, and leases</li></ul><br>
 <h4>How much can I borrow?</h4>
-<ul><li>You can borrow up to 50% LTV (loan-to-value)</li></ul><br>
+<ul><li>You can borrow up to 50% LTV (loan-to-value)</li></ul><br> -->
 
 	</div>
 </div>

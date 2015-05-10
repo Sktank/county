@@ -34,10 +34,11 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
+        <div class="wrapper">
         {% block header %}
     
             <div class="mainmenu-wrapper {% block home-active-border-1 %}{% endblock %}">
-                <div class="logo-wrapper"><a href="/"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img></a><a href="/"><span class="brand-span">County Mortgage, LLC</span></a><span class="phone-span">NMLS # 2162</span></div>
+                <div class="logo-wrapper"><a href="/"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img></a><a href="/"><span class="brand-span">County Mortgage, LLC</span></a><span class="phone-span">NMLS # {{ meta.nmlsNumber }}</span></div>
 <!--                     <div class="menuextras">
                         <div class="extras">
                             <ul>
@@ -64,7 +65,7 @@
                                     <a class="nav-header-link navbar-link">BORROWERS</a>
                                     <div class="dropdown-menu">
                                         <a href="transactions">Recent Transactions</a>
-                                        <a href="https://ssl.selectpayment.com/cpp/countymortgage/Login.aspx" target="_blank">Payment Portal</a>
+                                        <a href="{{ meta.paymentLink }}" target="_blank">Payment Portal</a>
                                         <a href="loan-criteria#investment">Loan Criteria</a>
                                         <a href="owner-occupied">Owner Occupied <br> 1-4 Family</a>
                                         <a href="commercial">Commercial</a>
@@ -124,6 +125,8 @@
 
         {% endblock %}
 
+        <div class="push"></div>
+        </div>
 
         {% block footer %}
             <div class="footer">
@@ -141,11 +144,11 @@
                             <h3>Navigate</h3>
                             <ul class="no-list-style footer-navigate-section">
                                 <li><a href="about">About</a></li>
-                                <li><a href="loan-criteria">Borrowers</a></li>
-                                <li><a href="transactions">Brokers</a></li>
+                                <li><a href="loan-criteria">Loan Criteria</a></li>
                                 <li><a href="contact">Contact</a></li>
-                                <li><a href="https://ssl.selectpayment.com/cpp/countymortgage/Login.aspx" target="_blank">Payment</a></li>
-                                <li><a href="glossary">Resources</a></li>
+                                <li><a href="{{ meta.paymentLink }}" target="_blank">Payment</a></li>
+                                <li><a href="glossary">Glossary</a></li>
+                                <li><a href="servicing-disclosure">Servicing Disclosure</a></li>
                                 <li><a href="../pdf/Anti-Money_Laundering_Policy.pdf" target="_blank">Anti-Money Laundering Policy​</a></li>
                                 <li><a href="privacy-policy">Privacy Policy</a></li>
                             </ul>
@@ -154,15 +157,13 @@
                         <div class="col-footer col-md-5 col-xs-6">
                             <h3>Contacts</h3>
                             <p class="contact-us-details">
-                                <b>Address:</b> 123 Fake Street, LN1 2ST, London, United Kingdom<br/>
-                                <b>Phone:</b> +44 123 654321<br/>
-                                <b>Fax:</b> +44 123 654321<br/>
-                                <b>Email:</b> <a href="mailto:getintoutch@yourcompanydomain.com">getintoutch@yourcompanydomain.com</a>
+                                <b>Address:</b> {{ meta.address }}<br/>
+                                <b>Phone:</b> {{ meta.phone }}<br/>
+                                <b>Fax:</b> {{ meta.fax }}<br/>
+                                <b>Email:</b> <a href="mailto:{{ meta.email }}">{{ meta.email }}</a>
                             </p>
                         </div>
                         
-                    </div>
-                    <div class="row footer-padding">
                     </div>
                 </div>
             </div>

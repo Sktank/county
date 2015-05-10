@@ -21,10 +21,27 @@
 
 
 <ul class="nav nav-tabs nav-justified">
-	<li ng-click="view = {}; view.contacts = true" ng-class="{active:view.contacts}">Messages</li>
-	<li ng-click="view = {}; view.recentTransactions = true" ng-class="{active:view.recentTransactions}">Recent Transactions</li>
-	<li ng-click="view = {}; view.borrowerTestimonials = true" ng-class="{active:view.borrowerTestimonials}">Borrower Testimonials</li>
-	<li ng-click="view = {}; view.brokerTestimonials = true" ng-class="{active:view.brokerTestimonials}">Broker Testimonials</li>
+	<li ng-click="view = {}; view.contacts = true; currtype = ''" ng-class="{active:view.contacts}">Messages</li>
+	<li ng-click="view = {}; view.recentTransactions = true; currtype = ''" ng-class="{active:view.recentTransactions}">Recent Transactions</li>
+	<li ng-click="view = {}; view.meta = true; currtype = ''" ng-class="{active:view.meta}">Meta</li>
+	<li ng-click="view = {}; view.entities = true;currlist = team.list; currtype = 'team'; currtypeDisplay = 'Team'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'team'}">Team</li>
+	<li ng-click="view = {}; view.entities = true;currlist = lawyers.list; currtype = 'lawyers'; currtypeDisplay = 'Lawyers'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'lawyers'}">Lawyers</li>
+	<li ng-click="view = {}; view.entities = true;currlist = appraisers.list; currtype = 'appraisers'; currtypeDisplay = 'Appraisers'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'appraisers'}">Appraisers</li>
+
+	<li ng-click="view = {}; view.entities = true;currlist = investment.list; currtype = 'investment'; currtypeDisplay = 'Investment Loan Criteria'; currFirst = 'Criteria'; currOther='Value'" ng-class="{active:currtype == 'investment'}">Investment Loan Criteria</li>
+	<li ng-click="view = {}; view.entities = true;currlist = residential.list; currtype = 'residential'; currtypeDisplay = 'Residential Loan Criteria'; currFirst = 'Criteria'; currOther='Value'" ng-class="{active:currtype == 'residential'}">Residential Loan Criteria</li>
+	
+</ul>
+<ul class="nav nav-tabs nav-justified">
+<li ng-click="view = {}; view.entities = true;currlist = about.list; currtype = 'about'; currtypeDisplay = 'About'; currFirst = 'First Paragraph'; currOther='Other Paragraph'" ng-class="{active:currtype == 'about'}">About</li>
+
+<li ng-click="view = {}; view.entities = true;currlist = glossaryquestions.list; currtype = 'glossaryquestions'; currtypeDisplay = 'Glossary Questions'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'glossaryquestions'}">Glossary Questions</li>
+	<li ng-click="view = {}; view.entities = true;currlist = glossaryterms.list; currtype = 'glossaryterms'; currtypeDisplay = 'Glossary Terms'; currFirst = 'Term'; currOther='Definition'" ng-class="{active:currtype == 'glossaryterms'}">Glossary Terms</li>
+	<li ng-click="view = {}; view.entities = true;currlist = credit.list; currtype = 'credit'; currtypeDisplay = 'Credit Bureau Links'; currFirst = 'Display Text'; currOther='Link'" ng-class="{active:currtype == 'credit'}">Credit Bureau Links</li>
+	<li ng-click="view = {}; view.entities = true;currlist = massgov.list; currtype = 'massgov'; currtypeDisplay = 'Mass Gov Links'; currFirst = 'Display Text'; currOther='Link'" ng-class="{active:currtype == 'massgov'}">Mass Gov Links</li>
+	<li ng-click="view = {}; view.entities = true;currlist = owner.list; currtype = 'owner'; currtypeDisplay = 'Owner Occupied'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'owner'}">Owner Occupied</li>
+	<li ng-click="view = {}; view.entities = true;currlist = commercial.list; currtype = 'commercial'; currtypeDisplay = 'Commercial'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'commercial'}">Commercial</li>
+	<li ng-click="view = {}; view.entities = true;currlist = construction.list; currtype = 'construction'; currtypeDisplay = 'Construction'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'construction'}">Construction</li>
 </ul>
 
 <div ng-show="view.contacts">
@@ -129,129 +146,165 @@
   </div>
 </div>
 
+<div ng-show="view.meta">
+	<h2 style="text-align: center;">Meta Information</h2>
 
-<div ng-show="view.brokerTestimonials">
-	<h2>Broker Testimonials</h2>
-	<div class="add-transaction-container">
-		<h4>Add New Testimonial</h4>
-		<form role="form" class="add-transaction-form">
-			<div class="form-group">
-			    <label>Name *</label>
-			    <input class="form-control" name="name" ng-model="newBrokerTestimonial.name">
-		  	</div>
-		  	<div class="form-group">
-			    <label>Testimonial *</label>
-			    <textarea rows="4" class="form-control" name="quote" ng-model="newBrokerTestimonial.quote"></textarea>
-		  	</div>
-		  	<button class="btn btn-default" ng-click="createNewTestimonial(newBrokerTestimonial, 'broker');">Submit</button>
-		</form>
-	</div>
-	<hr>
-	<div class="update-order-wrapper" ng-show="brokerTestimonials.list.length > 1">
-		<div class="btn btn-default" ng-click="brokerTestimonials.updateOrder = !brokerTestimonials.updateOrder" ng-show="!brokerTestimonials.updateOrder">Update Listing Order</div>
-		<div class="btn btn-default" ng-click="saveReorder(brokerTestimonials, 'testimonial')" ng-show="brokerTestimonials.updateOrder">Save Order</div>
-		<div class="btn btn-default" ng-click="cancelReorder(brokerTestimonials)" ng-show="brokerTestimonials.updateOrder">Cancel</div>
-	</div>
-	<div class="col-md-12" ng-repeat="testimonial in brokerTestimonials.list | orderBy:'positionTemp'">
-		<div ng-show="!testimonial.update">
-		<!-- <div><b>[[ $index + 1 ]].</b></div> -->
-	    <div><b>Name:</b> [[ testimonial.name ]]</div>
-		<div><b>Quote:</b> [[ testimonial.quote ]]</div>
-		</div>
+		<div class="btn btn-success" ng-click="saveMeta()">Save</div>
+		<div class="btn btn-error cancel-btn" ng-click="cancelMeta()">Cancel</div>
 		<br><br>
-		<div class="update-container" ng-show="testimonial.update">
-		<form role="form" class="add-transaction-form form-horizontal">
-			<div class="form-group">
-			    <label>Name</label>
-			    <input class="form-control" name="name" ng-model="testimonial.nameTemp">
-		  	</div>
-		  	<div class="form-group">
-			    <label>Quote</label>
-			    <textarea rows="4" class="form-control" name="address" ng-model="testimonial.quoteTemp"></textarea>
-		  	</div>
-		  	<button class="btn btn-default" ng-click="updateTestimonial(testimonial)">Save</button>
-		  	<button class="btn btn-default" ng-click="testimonial.update = false">Cancel</button>
-		  	<hr>
-		</form>
-		</div>
-		<div class="update-btn-container" ng-show="!brokerTestimonials.updateOrder">
-			<div class="btn btn-default" ng-click="deleteItem(testimonial, 'testimonial', brokerTestimonials)">Delete</div>
-			<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
-		</div>
-		<div class="updateOrder-btn-container" ng-show="brokerTestimonials.updateOrder">
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveToTop(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-up"></i></div>
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveUp(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-up"></i></div>
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == brokerTestimonials.list.length - 1" ng-click="moveDown(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-down"></i></div>
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == brokerTestimonials.list.length - 1" ng-click="moveToBottom(brokerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-down"></i></div>
-		</div>
-		<hr>
-		<br>
+
+	<!-- for entity in entities -->
+	<div class="entity-container">
+		<div class="form-group">
+			<label>Banner Title</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.bannerTitle">
+	  	</div>
+	  	<div class="form-group">
+			<label>Banner Subtext Big</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.bannerSubtextBig">
+	  	</div>
+	  	<div class="form-group">
+			<label>Banner Subtext Small</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.bannerSubtextSmall">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home About Header</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeAboutHeader">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home About Text</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeAboutText">
+	  	</div>
+
+
+	  	<div class="form-group">
+			<label>Home Services Header</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSectionsHeader">
+	  	</div>
+
+
+	  	<div class="form-group">
+			<label>Home Service 1 Header</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection1Header">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 1 Text</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection1Text">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 1 Icon</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection1Icon">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 1 Link</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection1Link">
+	  	</div>
+
+	  	
+	  	<div class="form-group">
+			<label>Home Service 2 Header</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection2Header">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 2 Text</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection2Text">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 2 Icon</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection2Icon">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 2 Link</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection2Link">
+	  	</div>
+
+
+	  	<div class="form-group">
+			<label>Home Service 3 Header</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection3Header">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 3 Text</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection3Text">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 3 Icon</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection3Icon">
+	  	</div>
+	  	<div class="form-group">
+			<label>Home Service 3 Link</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.homeSection3Link">
+	  	</div>
+
+
+	  	<div class="form-group">
+			<label>NMLS Number</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.nmlsNumber">
+	  	</div>
+	  	<div class="form-group">
+			<label>Address</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.address">
+	  	</div>
+	  	<div class="form-group">
+			<label>Phone</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.phone">
+	  	</div>
+	  	<div class="form-group">
+			<label>Fax</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.fax">
+	  	</div>
+	  	<div class="form-group">
+			<label>Email</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.email">
+	  	</div>
+	  	<div class="form-group">
+			<label>Payment Link</label>
+		    <input class="form-control" type="text" name="input" ng-model="meta.paymentLink">
+	  	</div>
 	</div>
+
+		<div class="btn btn-success" ng-click="saveMeta()">Save</div>
+		<div class="btn btn-error cancel-btn" ng-click="cancelMeta()">Cancel</div>
 </div>
 
 
-<div ng-show="view.borrowerTestimonials">
-	<h2>Borrower Testimonials</h2>
-	<div class="add-transaction-container">
-		<h4>Add New Testimonial</h4>
-		<form role="form" class="add-transaction-form">
-			<div class="form-group">
-			    <label>Name *</label>
-			    <input class="form-control" name="name" ng-model="newBorrowerTestimonial.name">
-		  	</div>
-		  	<div class="form-group">
-			    <label>Testimonial *</label>
-			    <textarea rows="4" class="form-control" name="quote" ng-model="newBorrowerTestimonial.quote"></textarea>
-		  	</div>
-		  	<button class="btn btn-default" ng-click="createNewTestimonial(newBorrowerTestimonial, 'borrower');">Submit</button>
-		</form>
-	</div>
-	<hr>
-	<div class="update-order-wrapper" ng-show="borrowerTestimonials.list.length > 1">
-		<div class="btn btn-default" ng-click="borrowerTestimonials.updateOrder = !borrowerTestimonials.updateOrder" ng-show="!borrowerTestimonials.updateOrder">Update Listing Order</div>
-		<div class="btn btn-default" ng-click="saveReorder(borrowerTestimonials, 'testimonial')" ng-show="borrowerTestimonials.updateOrder">Save Order</div>
-		<div class="btn btn-default" ng-click="cancelReorder(borrowerTestimonials)" ng-show="borrowerTestimonials.updateOrder">Cancel</div>
-	</div>
-	<div class="col-md-12" ng-repeat="testimonial in borrowerTestimonials.list | orderBy:'positionTemp'">
-		<div ng-show="!testimonial.update">
-		<!-- <div><b>[[ $index + 1 ]].</b></div> -->
-<!-- 		<div><b>temp:</b> [[ testimonial.positionTemp ]]</div>
-		<div><b>pos:</b> [[ testimonial.position ]]</div> -->
-	    <div><b>Name:</b> [[ testimonial.name ]]</div>
-		<div><b>Quote:</b> [[ testimonial.quote ]]</div>
-		</div>
+<div ng-show="view.entities">
+	<h2 style="text-align: center;">[[currtypeDisplay]]</h2>
+
+		<div class="btn btn-success" ng-click="saveEntities(currtype)">Save</div>
+		<div class="btn btn-error cancel-btn" ng-click="cancelEntities(currtype)">Cancel</div>
 		<br><br>
-		<div class="update-container" ng-show="testimonial.update">
-		<form role="form" class="add-transaction-form form-horizontal">
+
+		<!-- [[currlist]] -->
+
+	<!-- for entity in entities -->
+	<div class="entity-container" ng-repeat="entity in currlist track by $index" ng-init="outerIndex = $index">
+		<div ng-repeat="term in entity track by $index" ng-init="innerIndex = $index">
 			<div class="form-group">
-			    <label>Name</label>
-			    <input class="form-control" name="name" ng-model="testimonial.nameTemp">
+			    <label ng-if="$first">[[currFirst]]: </label>
+				<label ng-if="!$first">[[currOther]]: [[$index]]</label>
+			    <input class="form-control" type="text" name="input" ng-model="term.val">
 		  	</div>
-		  	<div class="form-group">
-			    <label>Quote</label>
-			    <textarea rows="4" class="form-control" name="address" ng-model="testimonial.quoteTemp"></textarea>
-		  	</div>
-		  	<button class="btn btn-default" ng-click="updateTestimonial(testimonial)">Save</button>
-		  	<button class="btn btn-default" ng-click="testimonial.update = false">Cancel</button>
-		  	<hr>
-		</form>
+			<span ng-if="!$first">
+  				<div class="btn btn-default term-btn" ng-click="deleteTerm(currtype, outerIndex, innerIndex)">Delete [[currOther]]</div>
+  				<br><br>
+			</span>
+			
 		</div>
-		<div class="update-btn-container" ng-show="!borrowerTestimonials.updateOrder">
-			<div class="btn btn-default" ng-click="deleteItem(testimonial, 'testimonial', borrowerTestimonials)">Delete</div>
-			<div class="btn btn-default" ng-click="testimonial.update = true">Update</div>
-		</div>
-		<div class="updateOrder-btn-container" ng-show="borrowerTestimonials.updateOrder">
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveToTop(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-up"></i></div>
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == 0" ng-click="moveUp(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-up"></i></div>
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == borrowerTestimonials.list.length - 1" ng-click="moveDown(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-down"></i></div>
-			<div class="btn btn-default" ng-disabled="testimonial.positionTemp == borrowerTestimonials.list.length - 1" ng-click="moveToBottom(borrowerTestimonials.list, testimonial.positionTemp)"><i class="fa fa-angle-double-down"></i></div>
-		</div>
-		<hr>
-		<br>
+
+		<div ng-if="(currtype != 'investment' && currtype != 'residential' && currtype != 'credit' && currtype != 'massgov') || entity.length < 2" class="btn btn-default" ng-click="addTerm(currtype, outerIndex)">Add [[currOther]]</div>
+
+
+		<div class="btn btn-default" ng-click="deleteEntity(currtype, outerIndex)">Delete Entity</div>
+		<div class="btn btn-success" ng-click="saveEntities(currtype)">Save</div>
 	</div>
+
+
+		<div class="btn btn-default" ng-click="addEntity(currtype)">Add Entity</div><br><br>
+		<div class="btn btn-success" ng-click="saveEntities(currtype)">Save</div>
+		<div class="btn btn-error cancel-btn" ng-click="cancelEntities(currtype)">Cancel</div>
 </div>
 
 
-</div>
 </div>
 {% endblock %}

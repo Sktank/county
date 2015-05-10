@@ -18,7 +18,21 @@
 
 <p><b>Supported Appraisers</b></p><br>
 
-  <div class="employee-container col-md-6">
+
+{% for entity in entities %}
+<div class="employee-container col-md-6">
+	{% for term in entity %}
+	
+		{% if loop.first %}
+		<h4>{{ term.val }}</h4>
+		{% else %}
+		<h5>{{ term.val }}</h5>
+		{% endif %}
+	{% endfor %}
+		</div>
+{% endfor %}
+
+<!--   <div class="employee-container col-md-6">
 <h4>Michael Katzeff</h4>
 <h5>Asset Protection Group</h5>
 <h5>1172 Beacon Street</h5>
@@ -53,7 +67,7 @@
 <h5>11 Atlantic Avenue			62 Leicester Rd</h5>
 <h5>Marblehead, MA 01945		Marblehead, MA 01945</h5>
 <h5>Business: (781) 696-4814		www.atlanticappraisal.net</h5>
-</div>
+</div> -->
 	</div>
 </div>
 {% endblock %}

@@ -72,7 +72,13 @@
 	<h3 id="loan-parameters-header">Investment Loan Parameters</h3>
 	<table class="loan-parameters-table">
 		<tbody>
+			{% for icriteria in investment %}
 			<tr>
+				<td>{{ icriteria[0].val }}</td><td>{{ icriteria[1].val }}</td>
+			</tr>
+			{% endfor %}
+
+			<!-- <tr>
 				<td>Loan Amount</td><td>$100,000 to $200,000</td>
 			</tr>
 			<tr>
@@ -107,7 +113,7 @@
 			</tr>
 			<tr>
 				<td>Property Types</td><td>5+ Units on Multifamily, Mixed-Used, Commercial, Office, Retail, Social Club</td>
-			</tr>
+			</tr> -->
 		</tbody>
 	</table>
 	</div>
@@ -115,7 +121,14 @@
 	<h3 id="loan-parameters-header">Residential Loan Parameters</h3>
 	<table class="loan-parameters-table">
 		<tbody>
+			{% for rcriteria in residential %}
 			<tr>
+				<td>{{ rcriteria[0].val }}</td><td>{{ rcriteria[1].val }}</td>
+			</tr>
+			{% endfor %}
+
+
+			<!-- <tr>
 				<td>Loan Amount</td><td>$100,000 to $200,000</td>
 			</tr>
 			<tr>
@@ -150,7 +163,7 @@
 			</tr>
 			<tr>
 				<td>Brokers</td><td>Protected</td>
-			</tr>
+			</tr> -->
 		</tbody>
 	</table>
 	</div>

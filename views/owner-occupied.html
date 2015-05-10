@@ -17,7 +17,19 @@
 
 <p><b><a href="loan-criteria#residential">View Residential Loan Criteria</a></b></p><br>
 
-<h4>Do I need to work with a mortgage broker?</h4>
+
+{% for entity in entities %}
+{% for term in entity %}
+{% if loop.first %}
+<h4>{{ term.val }}</h4><ul>
+{% else %}
+<li>{{ term.val }}</li>
+{% endif %}
+{% endfor %}
+</ul><br>
+{% endfor %}
+
+<!-- <h4>Do I need to work with a mortgage broker?</h4>
 <ul><li>
 You must work with a licensed mortgage broker. For a list of licensed mortgage brokers in Massachusetts, click here (to some list of all brokers in MA).</li></ul><br>
 
@@ -81,7 +93,7 @@ How much can I borrow?
 </h4>
 <ul><li>
 You can borrow up to 60% LTV (loan-to-value)
-</li></ul><br>
+</li></ul><br> -->
 
 	</div>
 </div>

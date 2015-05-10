@@ -15,30 +15,20 @@
 	<div class="col-md-8 col-md-offset-2">
 		<!-- <h2 class="team-header">The County Mortage Team</h2><hr class="hr-visible"> -->
 		<div class="team-container">
-			<div class="employee-container col-md-6">
-				<h4 class="name">Stuart N. Cole</h4>
-				<p>Stuart@Countymtg.com</p>
-			</div>
 
-			<div class="employee-container col-md-6">
-				<h4 class="name">David Azanow</h4>
-				<p>David@Countymtg.com</p>
-			</div>
+			{% for entity in entities %}
+				<div class="employee-container col-md-6">
+					{% for term in entity %}
 
-			<div class="employee-container col-md-6">
-				<h4 class="name">Simmy Gramolini</h4>
-				<p>Admin@Countymtg.com</p>
-			</div>
-
-			<div class="employee-container col-md-6">
-				<h4 class="name">Michael Dessailly</h4>
-				<p>Escrow@Countymtg.com</p>
-			</div>
+						{% if loop.first %}
+							<h4 class="name">{{ term.val }}</h4>
+						{% else %}
+							<p>{{ term.val }}</p>
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endfor %}
 		</div>
-
-
-
-
 
 	</div>
 </div>

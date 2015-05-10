@@ -20,8 +20,12 @@
   <p><b>The following links provide information on buying your first home:</b></p><br>
 
   <ul>
-<li><a href="http://www.mass.gov/portal/articles/buying-a-home-in-massachusetts.html" target="_blank">Buying a Home</a></li>
-<li><a href="http://www.mass.gov/hed/housing/affordable-own/first-time-home-buyer-fthb.html" target="_blank">First Time Home Buyer</a></li>
+
+  {% for entity in entities %}
+<li><a href="{{ entity[1].val }}" target="_blank">{{ entity[0].val }}</a></li>
+{% endfor %}
+<!-- <li><a href="http://www.mass.gov/portal/articles/buying-a-home-in-massachusetts.html" target="_blank">Buying a Home</a></li>
+<li><a href="http://www.mass.gov/hed/housing/affordable-own/first-time-home-buyer-fthb.html" target="_blank">First Time Home Buyer</a></li> -->
 </ul>
 
 	</div>

@@ -15,7 +15,20 @@
 <div class="container padded-container">
 	<div class="col-md-8 col-md-offset-2">
 		<!-- <h2 class="team-header">FAQ</h2><hr class="hr-visible"> -->
-		<h4>What is a hard money loan?</h4>
+
+
+{% for entity in questions %}
+	{% for term in entity %}
+		{% if loop.first %}
+		<h4>{{ term.val }}</h4>
+		{% else %}
+		<p>{{ term.val }}</p>
+		{% endif %}
+	{% endfor %}
+	<br>
+{% endfor %}
+
+<!-- <h4>What is a hard money loan?</h4>
 <p>
 Hard money loans are loans secured by real estate. At RCN Capital, loans are backed by non-
 owner occupied real estate. Per RCN’s guidelines, the amount of the loan cannot exceed 80% of 
@@ -30,9 +43,7 @@ What is a commercial loan?
 
 <p>
 Commercial loans are used for business purposes, rather than individual or personal interests. At 
-
 RCN Capital, we only make commercial loans that are secured by non-owner occupied 
-
 residential and commercial real estate.
 </p><br>
 
@@ -42,16 +53,28 @@ What is a bridge loan?
 
 <p>
 A bridge loan is typically interim alternative financing used by a business until more 
-
 conventional financing is secured. The bridge loan may also be used to cover short-term cash-
-
 flow issues.
-</p><br>
+</p><br> -->
+
+
 <hr class="hr-visible">
 <h3>
 Glossary
 </h3><br>
 
+{% for entity in terms %}
+	<p>
+	{% for term in entity %}
+		{% if loop.first %}
+		<b>{{ term.val }}</b> - 
+		{% else %}
+		{{ term.val }}
+		{% endif %}
+	{% endfor %}
+	</p>
+{% endfor %}
+<!-- 
 <p>
 <b>Appraisal</b> - A carefully documented estimate of property value. This is prepared by a licensed appraiser who 
 analyzes recent sale prices of similar/comparable properties.
@@ -211,7 +234,8 @@ The process that lenders go through to evaluate the risks posed by a particular 
 set appropriate conditions for the loan. This is based on the criteria of assets, credit, income, 
 
 employment, etc.
-</p><br>
+</p> -->
+<br>
 	</div>
 </div>
 {% endblock %}
