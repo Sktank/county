@@ -15,7 +15,9 @@ $(document).ready(function(){
 		console.log (name);
 		$(name)
 		  .mouseover(function() {showDropdown(name)})
-		  .mouseout(function() {hideDropdown(name)});
+		  .mouseout(function() {hideDropdown(name)})
+		  .focusin(function() {showDropdown(name)})
+		  .focusout(function() {hideDropdown(name)});
 	}
 
 
@@ -35,7 +37,9 @@ $(document).ready(function(){
 		console.log (name);
 		$(name)
 		  .mouseover(function() {showDropdownSide(name+"-side")})
-		  .mouseout(function() {hideDropdownSide(name+"-side")});
+		  .mouseout(function() {hideDropdownSide(name+"-side")})
+		  .focusin(function() {showDropdown(name+"-side")})
+		  .focusout(function() {hideDropdown(name+"-side")});
 	}
 
 	var header = "#about-dropdown";

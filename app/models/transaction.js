@@ -6,6 +6,8 @@ var transactionSchema = mongoose.Schema({
     address    : String,
     img        : String,
     position   : Number,
+    thheight   : String,
+    thwidth    : String,
 });
 
 // create the model for users and expose it to our app

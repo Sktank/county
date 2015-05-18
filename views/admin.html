@@ -81,9 +81,17 @@
 			    <input class="form-control" name="address" ng-model="newTransaction.address">
 		  	</div>
 		  	<div class="form-group">
-			    <label>Image</label>
+			    <label>Image *</label>
 		  	<input type="file" name="file" id="transactionUploader" onchange="console.log(angular.element(this).scope());angular.element(this).scope().uploadFile(this.files)"/>
 
+		  	</div>
+		  	<div class="form-group">
+			    <label>Thumbnail Height *</label>
+			    <input class="form-control" name="address" ng-model="newTransaction.thheight" placeholder="200">
+		  	</div>
+		  	<div class="form-group">
+			    <label>Thumbnail Width *</label>
+			    <input class="form-control" name="address" ng-model="newTransaction.thwidth" placeholder="300">
 		  	</div>
 		  	<button class="btn btn-default" ng-click="createNewTransaction(newTransaction);">Submit</button>
 
@@ -101,13 +109,15 @@
   		<div class="container">
   			<div class="row">
 	  			<div class="col-md-5">
-	  				<img ng-src="uploads/[[ transaction.img ]]" class="transaction-img"></img>
+	  				<img ng-src="uploads/[[ transaction.img ]]" class="transaction-img" style="width:[[ transaction.thwidth ]]px; height:[[ transaction.thheight ]]px"></img>
 	  			</div>
 	  			<div class="col-md-7">
 	  				<div ng-show="!transaction.update">
 	  				<h3>[[ transaction.positionTemp ]]</h3>
 					<h3>[[ transaction.name ]]</h3>
 					<h5>[[ transaction.address ]]</h5>
+					<h5>[[ transaction.thheight ]]</h5>
+					<h5>[[ transaction.thwidth ]]</h5>
 					</div>
 					<br><br>
 					<div class="update-container" ng-show="transaction.update">
@@ -120,6 +130,15 @@
 						    <label>Address</label>
 						    <input class="form-control" name="address" ng-model="transaction.addTemp">
 					  	</div>
+					  	<div class="form-group">
+					    <label>Thumbnail Height</label>
+						    <input class="form-control" name="address" ng-model="transaction.thheightTemp" placeholder="200">
+					  	</div>
+					  	<div class="form-group">
+						    <label>Thumbnail Width</label>
+						    <input class="form-control" name="address" ng-model="transaction.thwidthTemp" placeholder="300">
+					  	</div>
+
 					  	<button class="btn btn-default" ng-click="updateTransaction(transaction)">Save</button>
 					  	<button class="btn btn-default" ng-click="transaction.update = false">Cancel</button>
 					</form>

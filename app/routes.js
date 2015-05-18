@@ -33,8 +33,6 @@ module.exports = function(app, passport) {
             });
     });
 
-
-
     app.post('/contact', function (req, res) {
         // validate form
         // res.render('login.html', { message: req.flash('loginMessage') });
@@ -104,7 +102,8 @@ module.exports = function(app, passport) {
                 successMessage: req.flash('successMessage'),
                 name : name,
                 email : email,
-                message : message
+                message : message,
+                meta : req.meta
             });
         }
     });
@@ -152,12 +151,16 @@ module.exports = function(app, passport) {
             address    = form.address,
             img        = form.imgName,
             position   = form.position;
+            thheight   = form.thheight;
+            thwidth    = form.thwidth;
 
         var transaction            = new Transaction();
         transaction.name           = name;
         transaction.address        = address;
         transaction.img            = img;
         transaction.position       = position;
+        transaction.thheight       = thheight;
+        transaction.thwidth        = thwidth;
 
         transaction.save(function(err, model) {
             if (err)
@@ -187,10 +190,14 @@ module.exports = function(app, passport) {
         form.address = form.addTemp;
         form.money = form.monTemp;
         form.position = form.positionTemp;
+        form.thheight = form.thheightTemp;
+        form.thwidth = form.thwidthTemp;
         delete form.nameTemp;
         delete form.addTemp;
         delete form.monTemp;
         delete form.positionTemp;
+        delete form.thheightTemp;
+        delete form.thwidthTemp;
         // get the fields
         console.log(form);
         console.log(form._id);
@@ -278,23 +285,6 @@ module.exports = function(app, passport) {
         })
     }
 
-        // form.name = form.nameTemp;
-        // form.quote = form.quoteTemp;
-        // form.position = form.positionTemp;
-        // delete form.nameTemp;
-        // delete form.quoteTemp;
-        // delete form.positionTemp;
-        // // get the fields
-        // console.log(form);
-        // console.log(form._id);
-        // var id = form._id;
-        // delete form._id;
-        // Testimonial.findByIdAndUpdate(id, form, function(err, model) {
-        //     if (err)
-        //         throw err;
-        //     console.log('testimonial should be updated!');
-        //     res.json(model);
-        // })
     })
 
 
@@ -402,7 +392,7 @@ module.exports = function(app, passport) {
     app.get('/login', function(req, res) {
 
         // render the page and pass in any flash data if it exists
-        res.render('login.html', { message: req.flash('loginMessage') });
+        res.render('login.html', { message: req.flash('loginMessage'), meta : req.meta });
     });
 
     // process the login form
@@ -419,7 +409,7 @@ module.exports = function(app, passport) {
     app.get('/signup', function(req, res) {
 
         // render the page and pass in any flash data if it exists
-        res.render('signup.html', { message: req.flash('signupMessage') });
+        res.render('signup.html', { message: req.flash('signupMessage'), meta : req.meta });
     });
 
     // process the signup form
@@ -439,7 +429,7 @@ module.exports = function(app, passport) {
                 console.log("shit");
             } else {
                 console.log(contacts);
-                res.render('admin.html', {contacts: contacts});
+                res.render('admin.html', {contacts: contacts, meta : req.meta});
             }
         })
     });
@@ -489,36 +479,14 @@ module.exports = function(app, passport) {
                 throw err;
             } else {
                 transactions.sort(compareOrder);
-                res.render('transactions.html', {transactions: transactions});
-            }
-        })
-    })
-
-    app.get('/borrower-testimonials', function(req, res) {
-        Testimonial.find({type:'borrower'}, function(err, testimonials) {
-            if (err) {
-                throw err;
-            } else {
-                testimonials.sort(compareOrder);
-                res.render('testimonials.html', {testimonials: testimonials});
-            }
-        })
-    })
-
-    app.get('/broker-testimonials', function(req, res) {
-        Testimonial.find({type:'broker'}, function(err, testimonials) {
-            if (err) {
-                throw err;
-            } else {
-                testimonials.sort(compareOrder);
-                res.render('broker-testimonials.html', {testimonials: testimonials});
+                res.render('transactions.html', {transactions: transactions, meta : req.meta});
             }
         })
     })
 
 
     app.get('/contact', function (req, res) {
-        res.render('contact.html');
+        res.render('contact.html', {meta : req.meta});
     });
 
 
@@ -530,7 +498,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('about.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -544,7 +513,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('team.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -562,7 +532,8 @@ module.exports = function(app, passport) {
                         res.render('criteria.html',
                         {
                             investment: investment[0].list,
-                            residential: residential[0].list
+                            residential: residential[0].list,
+                            meta : req.meta
                         })
                     }
                 })
@@ -578,7 +549,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('owner-occupied.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -592,7 +564,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('commercial.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -606,7 +579,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('construction.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -624,7 +598,8 @@ module.exports = function(app, passport) {
                         res.render('glossary.html',
                         {
                             questions: questions[0].list,
-                            terms: terms[0].list
+                            terms: terms[0].list,
+                            meta : req.meta
                         })
                     }
                 })
@@ -633,7 +608,7 @@ module.exports = function(app, passport) {
     });
 
     app.get('/servicing-disclosure', function (req, res) {
-        res.render('servicing-disclosure.html');
+        res.render('servicing-disclosure.html', {meta : req.meta});
     });
 
     app.get('/appraisers-list', function (req, res) {
@@ -644,7 +619,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('appraisers-list.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -658,7 +634,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('closing-lawyers.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -672,7 +649,8 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('credit-bureau.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
@@ -686,29 +664,20 @@ module.exports = function(app, passport) {
                 console.log(entities[0].list);
                 res.render('mass-buyer-info.html',
                 {
-                    entities: entities[0].list
+                    entities: entities[0].list,
+                    meta : req.meta
                 })
             }
         })
     });
 
     app.get('/counselors', function (req, res) {
-        res.render('counselors.html');
+        res.render('counselors.html', {meta : req.meta});
     });
 
     app.get('/privacy-policy', function (req, res) {
-        res.render('privacy.html');
+        res.render('privacy.html', {meta : req.meta});
     });
-
-
-
-
-    // <a href="servicing-disclosure">Servicing Disclosure</a>
-    //                                     <a href="appraisers-list">Appraisers List</a>
-    //                                     <a href="closing-lawyers">Closing Lawyers List</a>
-    //                                     <a href="glossary">Consumers Guide to Obtaining a Mortgage</a>
-    //                                     <a href="credit-bureau">Credit Bureau Websites</a>
-    //                                     <a href="mass-buyer-info">Mass.gov Home Buyer Information</a>
 
     app.get('/logout', function(req, res) {
         req.logout();

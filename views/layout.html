@@ -20,8 +20,8 @@
         <![endif]-->
         <link rel="stylesheet" href="/css/main.css">
         <link rel="stylesheet" href="/css/index.css">
-        <link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet' type='text/css'>
-
+        <!-- <link href='http://fonts.googleapis.com/css?family=Ropa+Sans' rel='stylesheet' type='text/css'> -->
+        <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
         {% block css %}
         {% endblock %}
 
@@ -38,7 +38,7 @@
         {% block header %}
     
             <div class="mainmenu-wrapper {% block home-active-border-1 %}{% endblock %}">
-                <div class="logo-wrapper"><a href="/"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img></a><a href="/"><span class="brand-span">County Mortgage, LLC</span></a><span class="phone-span">NMLS # {{ meta.nmlsNumber }}</span></div>
+                <div class="logo-wrapper"><a href="/"><img src="../img/logo.gif" height="100" width="100" class="logo-img"></img></a><a href="/"><span class="brand-span-1">County</span><span class="brand-span-2">Mortgage</span><span class="brand-span-3">LLC</span><span class="phone-span">NMLS # {{ meta.nmlsNumber }}</span></a></div>
 <!--                     <div class="menuextras">
                         <div class="extras">
                             <ul>
@@ -91,7 +91,7 @@
                                         <a href="glossary">Glossary</a>
 
                                         <div id="application-resources-dropdown">
-                                        <a href="" target="_blank" id="borrower-application-popout">Borrower Application Documents</a>
+                                        <a id="borrower-application-popout">Borrower Application Documents</a>
                                         <div id="application-resources-dropdown-side">
                                         <div class="dropdown-menu">
                                             <a href="../pdf/Loan_Application_Form.pdf" target="_blank">Uniform Residential Loan Application</a>
@@ -136,7 +136,7 @@
                             <h3>View Recent Transactions</h3>
                             <div class="portfolio-item">
                                 <div class="portfolio-image">
-                                    <a href="broker"><img src="img/house.jpg" alt="Recent Transactions"></a>
+                                    <a href="transactions"><img src="img/house.jpg" alt="Recent Transactions"></a>
                                 </div>
                             </div>
                         </div>

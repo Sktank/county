@@ -9,26 +9,52 @@ h2 {
 }*/
 
 .logo-img {
-	margin-top: -70px;
+	margin-top: -175px;
 }
 
-.brand-span {
+.footer {
+	height: 300px; /* .push must be the same height as .footer */
+}
+
+.push {
+	height: 135px;
+}
+
+
+.brand-span-1 {
 	position: absolute;
-	margin-top: -60px;
-	font-size: 32px;
-	margin-left: -11px;
+	margin-top: -75px;
+	font-size: 34px;
+	margin-left: -6px;
 	color: rgb(31, 62, 152);
-	font-family: 'Ropa Sans', sans-serif;
-	
+	font-family: 'Lora', serif;
+}
+
+.brand-span-2 {
+	position: absolute;
+	margin-top: -40px;
+	font-size: 34px;
+	margin-left: -43px;
+	color: rgb(31, 62, 152);
+	font-family: 'Lora', serif;
+}
+
+.brand-span-3 {
+	position: absolute;
+	margin-top: 0px;
+	font-size: 34px;
+	margin-left: 47px;
+	color: rgb(31, 62, 152);
+	font-family: 'Lora', serif;
 }
 
 .phone-span {
-	transition: all .1s linear;
 	position: absolute;
-	right: 35px;
+	margin-top: 0px;
+	font-size: 17px;
+	margin-left: -77px;
 	color: rgb(31, 62, 152);
-	font-family: 'Ropa Sans', sans-serif;
-	font-size: 32px;
+	font-family: 'Lora', serif;
 }
 
 .mainmenu > ul > li.active > div > a {
@@ -38,7 +64,7 @@ h2 {
 
 .mainmenu {
 	margin-left: 25%;
-	margin-top: -50px;
+	margin-top: -38px;
 	transition: all .2s linear;
 }
 
@@ -110,32 +136,26 @@ h2 {
 	color: #4f8db3;;
 }
 
-@media screen and (min-width: 1200px) {
-/*	.transaction-container:hover .transaction-img{
-		height:250px;
-		width:375px;
+@media screen and (min-width: 1540px) {
+	.wrapper {
+		border-left: 1px solid #4f8db3;
+		border-right: 1px solid #4f8db3;
 	}
-
-	.transaction-container:hover .transaction-desc {
-		padding-left: 30px;
-	}*/
 }
 
 @media screen and (max-width: 1199px) {
 	.mainmenu {
-		margin-left: 10%;
+		margin-left: 21%;
 	}
 }
 
-@media screen and (max-width: 979px)
-
-@media screen and (min-width: 880px) {
-/*	.harbor-image {
-		background-size: cover;
-	}*/
+@media screen and (max-width: 1050px) {
+	.mainmenu {
+		margin-left: 10%;
+		margin-top: 15px;
+		transition: none
+	}
 }
-
-
 
 @media screen and (max-width: 479px) {
 	.mainmenu > ul > li > div > a {
@@ -147,7 +167,7 @@ h2 {
 
 
 .mainmenu-wrapper {
-	padding-top: 75px;
+	padding-top: 137px;
 	border-bottom: 2px solid #4f8db3;
 }
 
@@ -441,6 +461,7 @@ right: 20px;
 
 .subtitle {
 	margin-top: -35px;
+	width: 30%;
 }
 
 .subtitle-top-text {
@@ -527,15 +548,13 @@ h2 {
 	background: url(../img/page-background.png);
 }
 
-@media screen and (min-width: 992px) {
-/*	.navbar-link {
-		padding-left: 35px !important;
-		padding-right: 35px !important;
-	}*/
-	.phone-span {
-		margin-top: -60px;
-		/*font-size: 24px;*/
-		margin-left: 57%;
+
+@media screen and (max-width: 991px) {
+	.footer {
+		height: 500px; /* .push must be the same height as .footer */
+	}
+	.push {
+		height: 135px;
 	}
 }
 
@@ -547,11 +566,6 @@ h2 {
 	.mainmenu {
 		margin-left: 1%;
 	}
-	.phone-span {
-		margin-top: -60px;
-		/*font-size: 24px;*/
-		margin-left: 57%;
-	}
 }
 
 
@@ -559,13 +573,6 @@ h2 {
 	.navbar-link {
 		padding-left: 11px !important;
 		padding-right: 11px !important;
-	}
-	.phone-span {
-		margin-top: -30px;
-		/*font-size: 24px;*/
-		margin-left: 0px;
-		margin-right: 90px;
-		opacity: 0.7
 	}
 }
 
@@ -595,20 +602,6 @@ h2 {
 	}*/
 }
 
-@media screen and (max-width: 479px) {
-/*	.mainmenu {
-		transition: none;
-	}*/
-	.dropdown-menu {
-		visibility: hidden;
-	}
-/*	.phone-span {
-		margin-top: -30px;
-		font-size: 24px;
-		margin-left: 5px;
-		opacity: 0.7
-	}*/
-}
 
 
 
@@ -993,19 +986,22 @@ h2 {
 html, body {
 	height: 100%;
 }
+
+body {
+
+	/*box-shadow: 0 0px 12px rgba(0,0,0,.175);*/
+
+}
+
 .wrapper {
 	min-height: 100%;
 	height: auto !important; /* This line and the next line are not necessary unless you need IE6 support */
 	height: 100%;
 	margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
-}
-.footer {
-	height: 300px; /* .push must be the same height as .footer */
+	max-width: 1540px;
 }
 
-.push {
-	height: 135px;
-}
+
 
 .entity-container {
 		background: url(../img/page-background.png);

@@ -8,15 +8,10 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.contacts.viewArchive = false;
   $scope.view = {};
   $scope.view.contacts = true;
-  // $scope.currtype = 'team'; 
-  // $scope.currtypeDisplay = 'Team';
   $scope.transactions = {};
   $scope.newTransaction = {};
   $scope.brokerTestimonials = {};
   $scope.borrowerTestimonials = {};
-  // $scope.team = {};
-  // $scope.team.list = [];
-  // $scope.currlist = $scope.team.list;
 
 
   $scope.getContacts = function() {
@@ -47,6 +42,8 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       transaction.addTemp = transaction.address;
       transaction.monTemp = transaction.money;
       transaction.positionTemp = transaction.position;
+      transaction.thheightTemp = transaction.thheight;
+      transaction.thwidthTemp = transaction.thwidth;
     }
   })
   .error(function (message) {
@@ -143,40 +140,6 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.getMeta();
 
 
-
-
-  // $http.get('/api/testimonials/broker')
-  // .success(function(data) {
-  //   console.log(data);
-  //   $scope.brokerTestimonials.list = data;
-  //   for (var i = 0; i < $scope.brokerTestimonials.list.length; i++) {
-  //     var testimonial = $scope.brokerTestimonials.list[i];
-  //     testimonial.nameTemp = testimonial.name;
-  //     testimonial.quoteTemp = testimonial.quote;
-  //     testimonial.positionTemp = testimonial.position;
-  //   }
-  // })
-  // .error(function (message) {
-  //   console.log('failed to load contacts' + message);
-  // });
-
-
-  // $http.get('/api/testimonials/borrower')
-  // .success(function(data) {
-  //   console.log(data);
-  //   $scope.borrowerTestimonials.list = data;
-  //   for (var i = 0; i < $scope.borrowerTestimonials.list.length; i++) {
-  //     var testimonial = $scope.borrowerTestimonials.list[i];
-  //     testimonial.nameTemp = testimonial.name;
-  //     testimonial.quoteTemp = testimonial.quote;
-  //     testimonial.positionTemp = testimonial.position;
-  //   }
-  // })
-  // .error(function (message) {
-  //   console.log('failed to load contacts' + message);
-  // });
-
-
   ///////////////////////////////////////////////////////////////////////
   //                   CRUD Operations for Transactions                //
   ///////////////////////////////////////////////////////////////////////
@@ -210,6 +173,8 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       data.nameTemp = data.name;
       data.addTemp = data.address;
       data.positionTemp = data.position;
+      data.thheightTemp = data.thheight;
+      data.thwidthemp = data.thwidth;
       $scope.transactions.list.push(data);
       $scope.newTransaction = {};
       $('#transactionUploader').val(null);
@@ -229,50 +194,13 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       transaction.name = transaction.nameTemp;
       transaction.address = transaction.addTemp;
       transaction.money = transaction.monTemp;
+      transaction.thheight = transaction.thheightTemp;
+      transaction.thwidth = transaction.thwidthTemp;
     })
     .error(function (message) {
       console.log(message)
     })
   }
-
-///////////////////////////////////////////////////////////////////////
-//                   CRUD Operations for Testimonials                //
-///////////////////////////////////////////////////////////////////////
-
-  // $scope.createNewTestimonial = function (testimonial, type) {
-  //   // console.log(newTransaction);
-  //   testimonial.type = type;
-  //   if (testimonial.type === 'broker') {
-  //     testimonial.position = $scope.brokerTestimonials.list.length;
-  //   } else {
-  //     testimonial.position = $scope.borrowerTestimonials.list.length;
-  //   }
-  //   console.log(testimonial);
-  //   $http.post('/api/testimonial/create', testimonial)
-  //   .success(function(data) {
-  //     console.log(data);
-  //     data.nameTemp = data.name;
-  //     data.quoteTemp = data.quote;
-  //     data.positionTemp = data.position;
-  //     if (data.type === 'broker') {
-  //       $scope.brokerTestimonials.list.push(data);
-  //       $scope.newBrokerTestimonial = {};
-  //     } else {
-  //       $scope.borrowerTestimonials.list.push(data);
-  //       $scope.newBorrowerTestimonial = {};
-  //     }
-  //    })
-  //   .error(function (message) {
-  //     console.log(message)
-  //   })
-  // }
-
-  // <div class="btn btn-default" ng-click="deleteTerm('team', '$parent.$index', '$index')">Delete Term</div>
-  //   </div>
-  //   <div class="btn btn-default" ng-click="addTerm('team', '$parent.$index')">Add Term</div>
-  //   <div class="btn btn-default" ng-click="deleteEntity('team', '$parent.$index')">Delete Entity</div>
-  // </div>
-  // <div class="btn btn-default" ng-click="addEntity('team')">Add Entity</div>
 
 
   $scope.deleteTerm = function (type, parentIndex, termIndex) {
@@ -295,8 +223,6 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
     $scope[type].list.push([{"val":""}])
   }  
 
-  // <div class="btn btn-default" ng-click="saveEntities('team')">Save</div>
-  // <div class="btn btn-default" ng-click="cancleEntities('team')">Cancel</div>
 
   $scope.saveEntities = function (type) {
     $http.post('/api/entities/save', $scope[type])
