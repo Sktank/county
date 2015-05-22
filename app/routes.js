@@ -72,16 +72,30 @@ module.exports = function(app, passport) {
         var now = date.getTime();
 
 
-        var transporter = nodemailer.createTransport({
-            service: 'gmail',
+        // var transporter = nodemailer.createTransport("SMTP", {
+        //     service: "hotmail",
+        //     auth: {
+        //         user: "Escrow@scountymtg.com",
+        //         pass: "Scout138"
+        //     }
+        // });
+
+        var transporter = nodemailer.createTransport("SMTP", {
+            host: "smtp-mail.outlook.com", // hostname
+            secureConnection: false, // TLS requires secureConnection to be false
+            port: 587, // port for secure SMTP
             auth: {
-                user: '<USERNAME>',
-                pass: '<PASSWORD>'
+                user: "Escrow@scountymtg.com",
+                pass: "Scout138"
+            },
+            tls: {
+                ciphers:'SSLv3'
             }
         });
+
         var mailOptions = {
             from: 'County Mortgage Website',
-            to: '<USERNAME>',
+            to: 'sktank16@gmail.com',
             subject: 'County Mortgage Website Message From ' + name,
             html: '<br><b>Name: </b>' + name + '<br><b>Email or Phone: </b>' + email + '<br><br>' + message, // html body
             text: name + "; " + email + "; " + message
@@ -437,14 +451,14 @@ module.exports = function(app, passport) {
     // SIGNUP ==============================
     // =====================================
     // show the signup form
-    app.get('/signup', function(req, res) {
+    app.get('/signup', isLoggedIn, function(req, res) {
 
         // render the page and pass in any flash data if it exists
         res.render('signup.html', { message: req.flash('signupMessage'), meta : req.meta });
     });
 
     // process the signup form
-    app.post('/signup', passport.authenticate('local-signup', {
+    app.post('/signup', isLoggedIn, passport.authenticate('local-signup', {
         successRedirect : '/admin', // redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages

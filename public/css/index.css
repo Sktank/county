@@ -169,6 +169,7 @@ h2 {
 .mainmenu-wrapper {
 	padding-top: 137px;
 	max-width: 1540px;
+	min-width: 400px;
 	margin: auto;
 	border-bottom: 0px solid #4f8db3;
 }
@@ -557,6 +558,15 @@ h2 {
 @media screen and (max-width: 991px) {
 	.footer {
 		height: 500px; /* .push must be the same height as .footer */
+	}
+	.push {
+		height: 135px;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.footer {
+		height: 550px; /* .push must be the same height as .footer */
 	}
 	.push {
 		height: 135px;
@@ -1024,6 +1034,7 @@ body {
 
 .content-wrapper {
 	max-width: 1540px;
+	min-width: 400px;
 	margin: auto;
 
 }
