@@ -8,7 +8,8 @@ var User          = require('./models/user'),
     async         = require("async"),
     formidable    = require('formidable'),
     util          = require('util')
-    fs            = require('fs-extra');
+    fs            = require('fs-extra'),
+    nodemailer    = require('nodemailer');
 
 module.exports = function(app, passport) {
 
@@ -70,21 +71,48 @@ module.exports = function(app, passport) {
         var date = new Date();
         var now = date.getTime();
 
-        var contact            = new Contact();
 
-        // set the user's local credentials
-        contact.name           = name;
-        contact.email          = email;
-        contact.message        = message;
-        contact.time           = now;
-        contact.archived       = false;
-        // save the user
-        contact.save(function(err) {
-            if (err)
-                throw err;
-            console.log('user should be saved!');
-            returnForm(true)
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: '<USERNAME>',
+                pass: '<PASSWORD>'
+            }
         });
+        var mailOptions = {
+            from: 'County Mortgage Website',
+            to: '<USERNAME>',
+            subject: 'County Mortgage Website Message From ' + name,
+            html: '<br><b>Name: </b>' + name + '<br><b>Email or Phone: </b>' + email + '<br><br>' + message, // html body
+            text: name + "; " + email + "; " + message
+        };
+
+        transporter.sendMail(mailOptions, function(error, info){
+            if(error){
+                console.log(error)
+                req.flash('errorMessage', 'Message failed to submit. Please email us directly');
+                returnForm(false)
+                return false;
+            } else{
+                console.log('Message sent');
+                returnForm(true);
+                }
+        });
+
+        //var contact            = new Contact();
+        // // set the user's local credentials
+        // contact.name           = name;
+        // contact.email          = email;
+        // contact.message        = message;
+        // contact.time           = now;
+        // contact.archived       = false;
+        // // save the user
+        // contact.save(function(err) {
+        //     if (err)
+        //         throw err;
+        //     console.log('user should be saved!');
+        //     returnForm(true)
+        // });
 
         function returnForm(ret) {
             console.log(ret);
@@ -93,6 +121,9 @@ module.exports = function(app, passport) {
                 email = req.body.email || '';
                 message = req.body.message || '';
             } else {
+                name = '';
+                email = '';
+                message = '';
                 req.flash('successMessage', 'Message sent!');
             }
 
@@ -419,7 +450,7 @@ module.exports = function(app, passport) {
         failureFlash : true // allow flash messages
     }));
 
-    app.get('/admin', function(req, res) {
+    app.get('/admin', isLoggedIn, function(req, res) {
         var user = req.user;
 
         // get all the contact message

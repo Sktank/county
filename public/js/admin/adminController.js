@@ -7,7 +7,7 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.contacts = {};
   $scope.contacts.viewArchive = false;
   $scope.view = {};
-  $scope.view.contacts = true;
+  $scope.view.meta = true;
   $scope.transactions = {};
   $scope.newTransaction = {};
   $scope.brokerTestimonials = {};
@@ -174,7 +174,7 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       data.addTemp = data.address;
       data.positionTemp = data.position;
       data.thheightTemp = data.thheight;
-      data.thwidthemp = data.thwidth;
+      data.thwidthTemp = data.thwidth;
       $scope.transactions.list.push(data);
       $scope.newTransaction = {};
       $('#transactionUploader').val(null);
