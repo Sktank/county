@@ -23,25 +23,25 @@
 <ul class="nav nav-tabs nav-justified">
 	<!-- <li ng-click="view = {}; view.contacts = true; currtype = ''" ng-class="{active:view.contacts}">Messages</li> -->
 	<li ng-click="view = {}; view.recentTransactions = true; currtype = ''" ng-class="{active:view.recentTransactions}">Recent Transactions</li>
-	<li ng-click="view = {}; view.meta = true; currtype = ''" ng-class="{active:view.meta}">Meta</li>
-	<li ng-click="view = {}; view.entities = true;currlist = team.list; currtype = 'team'; currtypeDisplay = 'Team'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'team'}">Team</li>
-	<li ng-click="view = {}; view.entities = true;currlist = lawyers.list; currtype = 'lawyers'; currtypeDisplay = 'Lawyers'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'lawyers'}">Lawyers</li>
-	<li ng-click="view = {}; view.entities = true;currlist = appraisers.list; currtype = 'appraisers'; currtypeDisplay = 'Appraisers'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'appraisers'}">Appraisers</li>
+	<li ng-click="saved = false; view = {}; view.meta = true; currtype = ''" ng-class="{active:view.meta}">Meta</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = team.list; currtype = 'team'; currtypeDisplay = 'Team'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'team'}">Team</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = lawyers.list; currtype = 'lawyers'; currtypeDisplay = 'Lawyers'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'lawyers'}">Lawyers</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = appraisers.list; currtype = 'appraisers'; currtypeDisplay = 'Appraisers'; currFirst = 'Name'; currOther='Term'" ng-class="{active:currtype == 'appraisers'}">Appraisers</li>
 
-	<li ng-click="view = {}; view.entities = true;currlist = investment.list; currtype = 'investment'; currtypeDisplay = 'Investment Loan Criteria'; currFirst = 'Criteria'; currOther='Value'" ng-class="{active:currtype == 'investment'}">Investment Loan Criteria</li>
-	<li ng-click="view = {}; view.entities = true;currlist = residential.list; currtype = 'residential'; currtypeDisplay = 'Residential Loan Criteria'; currFirst = 'Criteria'; currOther='Value'" ng-class="{active:currtype == 'residential'}">Residential Loan Criteria</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = investment.list; currtype = 'investment'; currtypeDisplay = 'Investment Loan Criteria'; currFirst = 'Criteria'; currOther='Value'" ng-class="{active:currtype == 'investment'}">Investment Loan Criteria</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = residential.list; currtype = 'residential'; currtypeDisplay = 'Residential Loan Criteria'; currFirst = 'Criteria'; currOther='Value'" ng-class="{active:currtype == 'residential'}">Residential Loan Criteria</li>
 	
 </ul>
 <ul class="nav nav-tabs nav-justified">
-<li ng-click="view = {}; view.entities = true;currlist = about.list; currtype = 'about'; currtypeDisplay = 'About'; currFirst = 'First Paragraph'; currOther='Other Paragraph'" ng-class="{active:currtype == 'about'}">About</li>
+<li ng-click="saved = false; view = {}; view.entities = true;currlist = about.list; currtype = 'about'; currtypeDisplay = 'About'; currFirst = 'First Paragraph'; currOther='Other Paragraph'" ng-class="{active:currtype == 'about'}">About</li>
 
-<li ng-click="view = {}; view.entities = true;currlist = glossaryquestions.list; currtype = 'glossaryquestions'; currtypeDisplay = 'Glossary Questions'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'glossaryquestions'}">Glossary Questions</li>
-	<li ng-click="view = {}; view.entities = true;currlist = glossaryterms.list; currtype = 'glossaryterms'; currtypeDisplay = 'Glossary Terms'; currFirst = 'Term'; currOther='Definition'" ng-class="{active:currtype == 'glossaryterms'}">Glossary Terms</li>
-	<li ng-click="view = {}; view.entities = true;currlist = credit.list; currtype = 'credit'; currtypeDisplay = 'Credit Bureau Links'; currFirst = 'Display Text'; currOther='Link'" ng-class="{active:currtype == 'credit'}">Credit Bureau Links</li>
-	<li ng-click="view = {}; view.entities = true;currlist = massgov.list; currtype = 'massgov'; currtypeDisplay = 'Mass Gov Links'; currFirst = 'Display Text'; currOther='Link'" ng-class="{active:currtype == 'massgov'}">Mass Gov Links</li>
-	<li ng-click="view = {}; view.entities = true;currlist = owner.list; currtype = 'owner'; currtypeDisplay = 'Owner Occupied'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'owner'}">Owner Occupied</li>
-	<li ng-click="view = {}; view.entities = true;currlist = commercial.list; currtype = 'commercial'; currtypeDisplay = 'Commercial'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'commercial'}">Commercial</li>
-	<li ng-click="view = {}; view.entities = true;currlist = construction.list; currtype = 'construction'; currtypeDisplay = 'Construction'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'construction'}">Construction</li>
+<li ng-click="saved = false; view = {}; view.entities = true;currlist = glossaryquestions.list; currtype = 'glossaryquestions'; currtypeDisplay = 'Glossary Questions'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'glossaryquestions'}">Glossary Questions</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = glossaryterms.list; currtype = 'glossaryterms'; currtypeDisplay = 'Glossary Terms'; currFirst = 'Term'; currOther='Definition'" ng-class="{active:currtype == 'glossaryterms'}">Glossary Terms</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = credit.list; currtype = 'credit'; currtypeDisplay = 'Credit Bureau Links'; currFirst = 'Display Text'; currOther='Link'" ng-class="{active:currtype == 'credit'}">Credit Bureau Links</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = massgov.list; currtype = 'massgov'; currtypeDisplay = 'Mass Gov Links'; currFirst = 'Display Text'; currOther='Link'" ng-class="{active:currtype == 'massgov'}">Mass Gov Links</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = owner.list; currtype = 'owner'; currtypeDisplay = 'Owner Occupied'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'owner'}">Owner Occupied</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = commercial.list; currtype = 'commercial'; currtypeDisplay = 'Commercial'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'commercial'}">Commercial</li>
+	<li ng-click="saved = false; view = {}; view.entities = true;currlist = construction.list; currtype = 'construction'; currtypeDisplay = 'Construction'; currFirst = 'Question'; currOther='Answer'" ng-class="{active:currtype == 'construction'}">Construction</li>
 </ul>
 
 <div ng-show="view.contacts">
@@ -169,6 +169,7 @@
 	<h2 style="text-align: center;">Meta Information</h2>
 
 		<div class="btn btn-success" ng-click="saveMeta()">Save</div>
+		<span ng-show="saved" class="saved">Saved.</span>
 		<div class="btn btn-error cancel-btn" ng-click="cancelMeta()">Cancel</div>
 		<br><br>
 
@@ -283,6 +284,7 @@
 	</div>
 
 		<div class="btn btn-success" ng-click="saveMeta()">Save</div>
+		<span ng-show="saved" class="saved">Saved.</span>
 		<div class="btn btn-error cancel-btn" ng-click="cancelMeta()">Cancel</div>
 </div>
 
@@ -291,6 +293,7 @@
 	<h2 style="text-align: center;">[[currtypeDisplay]]</h2>
 
 		<div class="btn btn-success" ng-click="saveEntities(currtype)">Save</div>
+		<span ng-show="saved" class="saved">Saved.</span>
 		<div class="btn btn-error cancel-btn" ng-click="cancelEntities(currtype)">Cancel</div>
 		<br><br>
 
@@ -316,11 +319,13 @@
 
 		<div class="btn btn-default" ng-click="deleteEntity(currtype, outerIndex)">Delete Entity</div>
 		<div class="btn btn-success" ng-click="saveEntities(currtype)">Save</div>
+		<span ng-show="saved" class="saved">Saved.</span>
 	</div>
 
 
 		<div class="btn btn-default" ng-click="addEntity(currtype)">Add Entity</div><br><br>
 		<div class="btn btn-success" ng-click="saveEntities(currtype)">Save</div>
+		<span ng-show="saved" class="saved">Saved.</span>
 		<div class="btn btn-error cancel-btn" ng-click="cancelEntities(currtype)">Cancel</div>
 </div>
 

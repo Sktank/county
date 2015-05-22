@@ -97,7 +97,7 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   $scope.getMeta = function() {
     $http.get('/api/meta')
     .success(function(data) {
-    console.log(data);
+    //console.log(data);
     if (data.length > 0) {
       var id = data[0]._id
       delete data[0]._id
@@ -165,11 +165,10 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
 
 	$scope.createNewTransaction = function (newTransaction) {
 		// console.log(newTransaction);
-    console.log(newTransaction);
     newTransaction.position = $scope.transactions.list.length;
     $http.post('/api/transaction/create', newTransaction)
     .success(function(data) {
-      console.log(data);
+      //console.log(data);
       data.nameTemp = data.name;
       data.addTemp = data.address;
       data.positionTemp = data.position;
@@ -185,12 +184,12 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
 	}
 
   $scope.updateTransaction = function (transaction) {
-    console.log(transaction);
+    //console.log(transaction);
     var id = transaction._id;
     delete transaction.update;
     $http.post('/api/transaction/update', transaction)
     .success(function(data) {
-      console.log(data);
+      //console.log(data);
       transaction.name = transaction.nameTemp;
       transaction.address = transaction.addTemp;
       transaction.money = transaction.monTemp;
@@ -204,27 +203,32 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
 
 
   $scope.deleteTerm = function (type, parentIndex, termIndex) {
-    console.log($scope[type].list)
-    console.log(parentIndex, termIndex)
+    //console.log($scope[type].list)
+    //console.log(parentIndex, termIndex)
+    $scope.saved = false;
     $scope[type].list[parentIndex].splice(termIndex, 1);
   }  
 
   $scope.addTerm = function (type, parentIndex) {
-    console.log(parentIndex)
-    console.log($scope[type].list)
+    //console.log(parentIndex)
+    //console.log($scope[type].list)
+    $scope.saved = false;
     $scope[type].list[parentIndex].push({"val":""});
   }  
 
   $scope.deleteEntity = function (type, parentIndex) {
+    $scope.saved = false;
     $scope[type].list.splice(parentIndex, 1);
   }  
 
   $scope.addEntity = function (type) {
+    $scope.saved = false;
     $scope[type].list.push([{"val":""}])
   }  
 
 
   $scope.saveEntities = function (type) {
+    $scope.saved = false;
     $http.post('/api/entities/save', $scope[type])
     .success(function(data) {
       data.id = data._id
@@ -233,7 +237,8 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
       $scope.currlist = $scope[type].list
       $scope.currtype = $scope[type].type
       console.log("save successful!")
-      console.log(data)
+      $scope.saved = true;
+      //console.log(data)
     })
     .error(function (message) {
       console.log(message)
@@ -241,18 +246,21 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   }  
 
   $scope.cancelEntities = function (type) {
-    console.log("refresh");
+    console.log("refreshed");
+    $scope.saved = false;
     $scope.getEntities(type, true);
   }  
 
   $scope.saveMeta = function () {
+    $scope.saved = false;
     $http.post('/api/meta/save', $scope.meta)
     .success(function(data) {
       data.id = data._id
       delete data._id
       $scope.meta = data
       console.log("save successful!")
-      console.log(data)
+      $scope.saved = true;
+      //console.log(data)
     })
     .error(function (message) {
       console.log(message)
@@ -260,21 +268,23 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   }  
 
   $scope.cancelMeta = function () {
+    $scope.saved = false;
     console.log("refresh meta");
     $scope.getMeta();
   }  
 
 
   $scope.deleteItem = function (item, itemType, section) {
-    console.log(item);
+    //console.log(item);
+    $scope.saved = false;
     var id = item._id;
     var list = section.list;
     $http.post('/api/' + itemType + '/delete', item)
     .success(function(data) {
-      console.log(data);
+      //console.log(data);
       for (var i = 0; i < list.length; i++) {
         if (list[i]._id === id) {
-          console.log(id)
+          //console.log(id)
           var position = list[i].positionTemp;
           list.splice(i, 1);
           for (var j = 0; j < list.length; j++) {
@@ -293,12 +303,12 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
   }
 
   $scope.updateTestimonial = function (testimonial) {
-    console.log(testimonial);
+    //console.log(testimonial);
     var id = testimonial._id;
     delete testimonial.update;
     $http.post('/api/testimonial/update', testimonial)
     .success(function(data) {
-      console.log(data);
+      //console.log(data);
       testimonial.name = testimonial.nameTemp;
       testimonial.quote = testimonial.quoteTemp;
     })
@@ -357,7 +367,7 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
 
   $scope.saveReorder = function (section, itemType) {
     var list = section.list
-    console.log(list);
+    //console.log(list);
     for (var i = 0; i < list.length; i++) {
       if (list[i].position != list[i].positionTemp) {
          var item = list[i];
@@ -385,10 +395,10 @@ adminApp.controller('AdminCtrl', ['$scope', '$http', function($scope, $http) {
     var list = $scope.contacts.list;
     $http.post('/api/contact/delete', contact)
     .success(function(data) {
-      console.log(data);
+      //console.log(data);
       for (var i = 0; i < list.length; i++) {
         if (list[i]._id === id) {
-          console.log(id)
+          //console.log(id)
           list.splice(i, 1);
           break;
         }

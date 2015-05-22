@@ -80,21 +80,10 @@ module.exports = function(app, passport) {
         //     }
         // });
 
-        var transporter = nodemailer.createTransport("SMTP", {
-            host: "smtp-mail.outlook.com", // hostname
-            secureConnection: false, // TLS requires secureConnection to be false
-            port: 587, // port for secure SMTP
-            auth: {
-                user: "Escrow@scountymtg.com",
-                pass: "Scout138"
-            },
-            tls: {
-                ciphers:'SSLv3'
-            }
-        });
+        var transporter = nodemailer.createTransport();
 
         var mailOptions = {
-            from: 'County Mortgage Website',
+            from: 'sktank16@gmail.com',
             to: 'sktank16@gmail.com',
             subject: 'County Mortgage Website Message From ' + name,
             html: '<br><b>Name: </b>' + name + '<br><b>Email or Phone: </b>' + email + '<br><br>' + message, // html body
@@ -129,7 +118,7 @@ module.exports = function(app, passport) {
         // });
 
         function returnForm(ret) {
-            console.log(ret);
+            //console.log(ret);
             if (!ret) {
                 name = req.body.name || '';
                 email = req.body.email || '';
@@ -190,7 +179,7 @@ module.exports = function(app, passport) {
 
     app.post('/api/transaction/create', function (req, res) {
         var form = req.body;
-        console.log(form);
+        //console.log(form);
         // get the fields
         var name       = form.name,
             address    = form.address,
@@ -218,8 +207,8 @@ module.exports = function(app, passport) {
     app.post('/api/transaction/delete', function (req, res) {
         var form = req.body;
         // get the fields
-        console.log(form);
-        console.log(form._id);
+        //console.log(form);
+        //console.log(form._id);
         Transaction.findByIdAndRemove(form._id, function(err, model) {
             if (err)
                 throw err;
@@ -244,8 +233,8 @@ module.exports = function(app, passport) {
         delete form.thheightTemp;
         delete form.thwidthTemp;
         // get the fields
-        console.log(form);
-        console.log(form._id);
+        //console.log(form);
+        //console.log(form._id);
         var id = form._id;
         delete form._id;
         Transaction.findByIdAndUpdate(id, form, function(err, model) {
@@ -274,8 +263,8 @@ module.exports = function(app, passport) {
     app.post('/api/entities/save', function (req, res) {
         var obj = req.body;
         var id = obj.id;
-        console.log(obj)
-        console.log(id)
+        //console.log(obj)
+        //console.log(id)
         delete obj.id;
         if (id) {
             Entities.findByIdAndUpdate(id, obj, function (err, model) {
@@ -310,8 +299,8 @@ module.exports = function(app, passport) {
     app.post('/api/meta/save', function (req, res) {
         var obj = req.body;
         var id = obj.id;
-        console.log(obj)
-        console.log(id)
+        //console.log(obj)
+        //console.log(id)
         delete obj.id;
         if (id) {
             Meta.findByIdAndUpdate(id, obj, function (err, model) {
@@ -338,63 +327,63 @@ module.exports = function(app, passport) {
     //                          Testimonials                      //
     ////////////////////////////////////////////////////////////////
 
-    app.post('/api/testimonial/create', function (req, res) {
-        var form = req.body;
-        console.log(form);
-        // get the fields
-        var name = form.name,
-            quote = form.quote,
-            type = form.type,
-            position = form.position;
+    // app.post('/api/testimonial/create', function (req, res) {
+    //     var form = req.body;
+    //     console.log(form);
+    //     // get the fields
+    //     var name = form.name,
+    //         quote = form.quote,
+    //         type = form.type,
+    //         position = form.position;
 
 
-        var testimonial            = new Testimonial();
-        testimonial.name           = name;
-        testimonial.quote          = quote;
-        testimonial.type           = type;
-        testimonial.position       = position;
+    //     var testimonial            = new Testimonial();
+    //     testimonial.name           = name;
+    //     testimonial.quote          = quote;
+    //     testimonial.type           = type;
+    //     testimonial.position       = position;
 
-        testimonial.save(function(err, model) {
-            if (err)
-                throw err;
-            console.log('testimonial should be saved!');
-            res.json(model);
-        });
-    })
+    //     testimonial.save(function(err, model) {
+    //         if (err)
+    //             throw err;
+    //         console.log('testimonial should be saved!');
+    //         res.json(model);
+    //     });
+    // })
 
-    app.post('/api/testimonial/delete', function (req, res) {
-        var form = req.body;
-        // get the fields
-        console.log(form);
-        console.log(form._id);
-        Testimonial.findByIdAndRemove(form._id, function(err, model) {
-            if (err)
-                throw err;
-            console.log('testimonial should be deleted!');
-            res.json(model);
-        })
-    })
+    // app.post('/api/testimonial/delete', function (req, res) {
+    //     var form = req.body;
+    //     // get the fields
+    //     console.log(form);
+    //     console.log(form._id);
+    //     Testimonial.findByIdAndRemove(form._id, function(err, model) {
+    //         if (err)
+    //             throw err;
+    //         console.log('testimonial should be deleted!');
+    //         res.json(model);
+    //     })
+    // })
 
-    app.post('/api/testimonial/update', function (req, res) {
-        var form = req.body;
-        form.name = form.nameTemp;
-        form.quote = form.quoteTemp;
-        form.position = form.positionTemp;
-        delete form.nameTemp;
-        delete form.quoteTemp;
-        delete form.positionTemp;
-        // get the fields
-        console.log(form);
-        console.log(form._id);
-        var id = form._id;
-        delete form._id;
-        Testimonial.findByIdAndUpdate(id, form, function(err, model) {
-            if (err)
-                throw err;
-            console.log('testimonial should be updated!');
-            res.json(model);
-        })
-    })
+    // app.post('/api/testimonial/update', function (req, res) {
+    //     var form = req.body;
+    //     form.name = form.nameTemp;
+    //     form.quote = form.quoteTemp;
+    //     form.position = form.positionTemp;
+    //     delete form.nameTemp;
+    //     delete form.quoteTemp;
+    //     delete form.positionTemp;
+    //     // get the fields
+    //     console.log(form);
+    //     console.log(form._id);
+    //     var id = form._id;
+    //     delete form._id;
+    //     Testimonial.findByIdAndUpdate(id, form, function(err, model) {
+    //         if (err)
+    //             throw err;
+    //         console.log('testimonial should be updated!');
+    //         res.json(model);
+    //     })
+    // })
 
 
     app.post('/api/contact/toggleArchive', function (req, res) {
@@ -413,8 +402,8 @@ module.exports = function(app, passport) {
     app.post('/api/contact/delete', function (req, res) {
         var form = req.body;
         // get the fields
-        console.log(form);
-        console.log(form._id);
+        //console.log(form);
+        //console.log(form._id);
         Contact.findByIdAndRemove(form._id, function(err, model) {
             if (err)
                 throw err;
@@ -540,7 +529,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('about.html',
                 {
                     entities: entities[0].list,
@@ -555,7 +544,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('team.html',
                 {
                     entities: entities[0].list,
@@ -591,7 +580,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('owner-occupied.html',
                 {
                     entities: entities[0].list,
@@ -606,7 +595,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('commercial.html',
                 {
                     entities: entities[0].list,
@@ -621,7 +610,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('construction.html',
                 {
                     entities: entities[0].list,
@@ -676,7 +665,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('closing-lawyers.html',
                 {
                     entities: entities[0].list,
@@ -691,7 +680,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('credit-bureau.html',
                 {
                     entities: entities[0].list,
@@ -706,7 +695,7 @@ module.exports = function(app, passport) {
             if (err) {
                 throw err;
             } else {
-                console.log(entities[0].list);
+                //console.log(entities[0].list);
                 res.render('mass-buyer-info.html',
                 {
                     entities: entities[0].list,
