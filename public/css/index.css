@@ -567,7 +567,10 @@ h2 {
 @media screen and (max-width: 400px) {
 	.footer {
 		height: 550px; /* .push must be the same height as .footer */
+		width: 400px;
 	}
+
+	.
 	.push {
 		height: 135px;
 	}
@@ -577,6 +580,10 @@ h2 {
 	}
 	#resources-dropdown-menu {
 		left: -67px;
+	}
+
+	.mainmenu-outer-wrapper {
+		width: 400px;
 	}
 }
 
