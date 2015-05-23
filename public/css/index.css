@@ -554,6 +554,31 @@ h2 {
 	background: url(../img/page-background.png);
 }
 
+.box2 h3{
+	text-align:center;
+	position:relative;
+	top:40px;
+}
+
+#loan-parameters-header {
+	text-decoration: underline;
+}
+
+.box2 table{
+	position:relative;
+	top: 65px;
+	margin: auto;
+}
+
+.box2 {
+	/*width:85%;*/
+	/*height:500px;*/
+	background:#FFF;
+	margin:-22px auto;
+	margin-bottom: 50px;
+	padding: 0px 70px 130px 70px; 
+}
+
 
 @media screen and (max-width: 991px) {
 	.footer {
@@ -783,30 +808,6 @@ h2 {
 	border-bottom: 1px dotted #4f8db3;
 }
 
-.box2 h3{
-	text-align:center;
-	position:relative;
-	top:40px;
-}
-
-#loan-parameters-header {
-	text-decoration: underline;
-}
-
-.box2 table{
-	position:relative;
-	top: 65px;
-	margin: auto;
-}
-
-.box2 {
-	/*width:85%;*/
-	/*height:500px;*/
-	background:#FFF;
-	margin:-22px auto;
-	margin-bottom: 50px;
-	padding: 0px 70px 130px 70px; 
-}
 
 /*==================================================
  * Effect 8

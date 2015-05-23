@@ -15,7 +15,7 @@ module.exports = function(app, passport) {
 
 
     app.use(function (req, res, next) {
-        console.log('Time:', Date.now());
+        //console.log('Time:', Date.now());
         Meta.find({}, function(err, meta) {
             if (err) {
                 throw err;
