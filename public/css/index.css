@@ -1068,3 +1068,21 @@ body {
 	color: green;
 }
 
+.payment-button {
+	float: right;
+  margin-right: 25px;
+  margin-top: -120px;
+  color: #999;
+}
+
+.payment-button:hover {
+	text-decoration: none;
+	color: #4f8db3;
+	-webkit-transition: all .1s linear;
+	-moz-transition: all .1s linear;
+	-o-transition: all .1s linear;
+	-ms-transition: all .1s linear;
+	transition: all .1s linear;
+
+}
+
